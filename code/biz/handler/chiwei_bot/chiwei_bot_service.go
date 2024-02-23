@@ -9,6 +9,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
+	"github.com/bezhai/multi-bot-task/biz/service/conf_value"
+	"github.com/bezhai/multi-bot-task/biz/utils/respx"
 )
 
 // GetStringValue .
@@ -22,7 +24,11 @@ func GetStringValue(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(conf.GetStringValueResponse)
+	value, err := conf_value.GetConfStringValue(ctx, req.Key)
+	if err != nil {
+		respx.Fail(c, -1, err.Error())
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.SuccessWith(c, &conf.GetStringValueResponseData{Value: value})
 }

@@ -3,9 +3,8 @@
 package chiwei_bot
 
 import (
+	chiwei_bot "github.com/bezhai/multi-bot-task/biz/handler/chiwei_bot"
 	"github.com/cloudwego/hertz/pkg/app/server"
-
-	"github.com/bezhai/multi-bot-task/biz/handler/chiwei_bot"
 )
 
 /*

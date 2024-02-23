@@ -4,10 +4,20 @@ package main
 
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
+
+	"github.com/bezhai/multi-bot-task/biz/clients/http_client"
+	"github.com/bezhai/multi-bot-task/biz/clients/lark_client"
+	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
+	"github.com/bezhai/multi-bot-task/biz/clients/redis_client"
 )
 
 func main() {
 	h := server.Default()
+
+	http_client.InitHttpClient()
+	lark_client.InitOfficialBot()
+	mongo_client.InitMongoDb()
+	redis_client.InitRedis()
 
 	register(h)
 	h.Spin()

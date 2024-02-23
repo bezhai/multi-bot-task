@@ -5,9 +5,7 @@ package chiwei_bot
 import (
 	"context"
 	"fmt"
-
 	"github.com/apache/thrift/lib/go/thrift"
-
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
 )
 
