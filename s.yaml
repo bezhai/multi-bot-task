@@ -10,9 +10,7 @@ resources:
       pre-deploy:
         - run: go mod tidy
           path: ./code
-        - run: >-
-            GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o target/main
-            main.go
+        - run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o target/main
           path: ./code
     props:
       region: ${vars.region}
