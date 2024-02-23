@@ -13,6 +13,19 @@ resources:
         - run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o target/main
           path: ./code
     props:
+      environmentVariables:
+          END_POINT: ${env(END_POINT)}
+          INTERNAL_END_POINT: ${env(INTERNAL_END_POINT)}
+          LARK_APP_ID: ${env(LARK_APP_ID)}
+          LARK_APP_SECRET: ${env(LARK_APP_SECRET)}
+          MONGO_INITDB_ROOT_PASSWORD: ${env(MONGO_INITDB_ROOT_PASSWORD)}
+          MONGO_INITDB_ROOT_USERNAME: ${env(MONGO_INITDB_ROOT_USERNAME)}
+          MONGO_SERVER_IP: ${env(MONGO_SERVER_IP)}
+          OSS_ACCESS_KEY_ID: ${env(OSS_ACCESS_KEY_ID)}
+          OSS_ACCESS_KEY_SECRET: ${env(OSS_ACCESS_KEY_SECRET)}
+          OSS_BUCKET: ${env(OSS_BUCKET)}
+          REDIS_PASSWORD: ${env(REDIS_PASSWORD)}
+          REDIS_SERVER_IP: ${env(REDIS_SERVER_IP)}
       region: ${vars.region}
       description: Chiwei bot task
       runtime: custom.debian10

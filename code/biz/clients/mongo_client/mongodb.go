@@ -20,7 +20,7 @@ var db *mongo.Client
 func InitMongoDb() {
 	var err error
 	url := fmt.Sprintf(`mongodb://%s:%s@%s/chiwei?connectTimeoutMS=2000&authSource=admin`,
-		env_utils.Value("MONGO_INITDB_ROOT_PASSWORD"),
+		env_utils.Value("MONGO_INITDB_ROOT_USERNAME"),
 		env_utils.Value("MONGO_INITDB_ROOT_PASSWORD"),
 		env_utils.Value("MONGO_SERVER_IP"),
 	)
