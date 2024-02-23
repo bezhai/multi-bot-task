@@ -8,7 +8,7 @@ import (
 
 	"github.com/apache/thrift/lib/go/thrift"
 
-	"github.com/bezhai/multi-bot-task/code/biz/model/conf"
+	"github.com/bezhai/multi-bot-task/biz/model/conf"
 )
 
 type ChiweiBotService interface {

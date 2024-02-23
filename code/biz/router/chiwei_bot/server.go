@@ -5,7 +5,7 @@ package chiwei_bot
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 
-	"github.com/bezhai/multi-bot-task/code/biz/handler/chiwei_bot"
+	"github.com/bezhai/multi-bot-task/biz/handler/chiwei_bot"
 )
 
 /*

@@ -5,7 +5,7 @@ package main
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 
-	"github.com/bezhai/multi-bot-task/code/biz/router"
+	"github.com/bezhai/multi-bot-task/biz/router"
 )
 
 // register registers all routers.
