@@ -10,11 +10,13 @@ require (
 	github.com/bezhai/go_utils v1.0.5
 	github.com/bytedance/gopkg v0.0.0-20220413063733-65bf48ffb3a7
 	github.com/cloudwego/hertz v0.8.1
+	github.com/hertz-contrib/cors v0.1.0
 	github.com/joho/godotenv v1.5.1
 	github.com/larksuite/oapi-sdk-go/v3 v3.2.0
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/redis/go-redis/v9 v9.5.1
 	go.mongodb.org/mongo-driver v1.14.0
+	golang.org/x/sync v0.1.0
 )
 
 require (
@@ -43,7 +45,6 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.5.0 // indirect

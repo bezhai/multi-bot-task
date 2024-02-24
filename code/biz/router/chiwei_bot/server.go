@@ -36,7 +36,7 @@ func Register(r *server.Hertz) {
 			{
 				_translation := _need_auth.Group("/translation", _translationMw()...)
 				_translation.POST("/delete", append(_deletetranslationMw(), chiwei_bot.DeleteTranslation)...)
-				_translation.GET("/list", append(_listtranslationMw(), chiwei_bot.ListTranslation)...)
+				_translation.POST("/list", append(_listtranslationMw(), chiwei_bot.ListTranslation)...)
 				_translation.POST("/update", append(_updatetranslationMw(), chiwei_bot.UpdateTranslation)...)
 			}
 		}

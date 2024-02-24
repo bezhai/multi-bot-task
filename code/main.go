@@ -3,7 +3,10 @@
 package main
 
 import (
+	"time"
+
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/hertz-contrib/cors"
 
 	"github.com/bezhai/multi-bot-task/biz/clients/http_client"
 	"github.com/bezhai/multi-bot-task/biz/clients/lark_client"
@@ -13,7 +16,12 @@ import (
 )
 
 func main() {
-	h := server.Default()
+	h := server.Default(server.WithMaxRequestBodySize(20<<24), server.WithWriteTimeout(60*time.Second))
+	h.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:    []string{"Content-Type", "Dnt", "Referer", "User-Agent", "Origin"},
+	}))
 
 	http_client.InitHttpClient()
 	lark_client.InitOfficialBot()
