@@ -20,8 +20,33 @@ func Register(r *server.Hertz) {
 	{
 		_api := root.Group("/api", _apiMw()...)
 		{
-			_conf := _api.Group("/conf", _confMw()...)
-			_conf.GET("/string_value", append(_getstringvalueMw(), chiwei_bot.GetStringValue)...)
+			_need_auth := _api.Group("/need-auth", _need_authMw()...)
+			{
+				_conf := _need_auth.Group("/conf", _confMw()...)
+				_conf.GET("/get-member-value", append(_getmembervalueMw(), chiwei_bot.GetMemberValue)...)
+				_conf.GET("/get-string-value", append(_getstringvalueMw(), chiwei_bot.GetStringValue)...)
+				_conf.POST("/set-member-value", append(_setmembervalueMw(), chiwei_bot.SetMemberValue)...)
+				_conf.POST("/set-string-value", append(_setstringvalueMw(), chiwei_bot.SetStringValue)...)
+			}
+			{
+				_image_store := _need_auth.Group("/image-store", _image_storeMw()...)
+				_image_store.POST("/add-task", append(_adddownloadtaskMw(), chiwei_bot.AddDownloadTask)...)
+				_image_store.GET("/list-info", append(_listpixivimagemetainfoMw(), chiwei_bot.ListPixivImageMetaInfo)...)
+				_image_store.POST("/update-status", append(_updatepixivimagestatusMw(), chiwei_bot.UpdatePixivImageStatus)...)
+			}
+			{
+				_translation := _need_auth.Group("/translation", _translationMw()...)
+				_translation.POST("/delete", append(_deletetranslationMw(), chiwei_bot.DeleteTranslation)...)
+				_translation.GET("/list", append(_listtranslationMw(), chiwei_bot.ListTranslation)...)
+				_translation.POST("/update", append(_updatetranslationMw(), chiwei_bot.UpdateTranslation)...)
+			}
+		}
+		{
+			_need_sk := _api.Group("/need-sk", _need_skMw()...)
+			{
+				_data_trans := _need_sk.Group("/data-trans", _data_transMw()...)
+				_data_trans.POST("/upload-to-lark", append(_uploadtosfiletolarkMw(), chiwei_bot.UploadTosFileToLark)...)
+			}
 		}
 	}
 }

@@ -9,6 +9,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
+	data_trans "github.com/bezhai/multi-bot-task/biz/model/data_trans"
+	image_store "github.com/bezhai/multi-bot-task/biz/model/image_store"
+	translation "github.com/bezhai/multi-bot-task/biz/model/translation"
 	"github.com/bezhai/multi-bot-task/biz/service/conf_value"
 	"github.com/bezhai/multi-bot-task/biz/utils/respx"
 )
@@ -20,7 +23,7 @@ func GetStringValue(ctx context.Context, c *app.RequestContext) {
 	var req conf.GetStringValueRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		respx.FailWithError(c, consts.StatusBadRequest, err)
 		return
 	}
 
@@ -31,4 +34,176 @@ func GetStringValue(ctx context.Context, c *app.RequestContext) {
 	}
 
 	respx.SuccessWith(c, &conf.GetStringValueResponseData{Value: value})
+}
+
+// UploadTosFileToLark .
+// @router /api/need-sk/data-trans/upload-tos-file-to-lark [POST]
+func UploadTosFileToLark(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req data_trans.UploadTosFileToLarkRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(data_trans.UploadTosFileToLarkResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// ListPixivImageMetaInfo .
+// @router /api/need-auth/image-store/pixiv-image-meta-info [GET]
+func ListPixivImageMetaInfo(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req image_store.ListPixivImageMetaInfoRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(image_store.ListPixivImageMetaInfoResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// UpdatePixivImageStatus .
+// @router /api/need-auth/image-store/update-pixiv-image-status [POST]
+func UpdatePixivImageStatus(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req image_store.UpdatePixivImageStatusRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(image_store.UpdatePixivImageStatusResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// DeleteTranslation .
+// @router /api/need-auth/translation/delete [POST]
+func DeleteTranslation(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req translation.DeleteTranslationRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(translation.DeleteTranslationResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// ListTranslation .
+// @router /api/need-auth/translation/list [GET]
+func ListTranslation(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req translation.ListTranslationRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(translation.ListTranslationResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// UpdateTranslation .
+// @router /api/need-auth/translation/update [POST]
+func UpdateTranslation(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req translation.UpdateTranslationRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(translation.UpdateTranslationResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AddDownloadTask .
+// @router /api/need-auth/image-store/add-task [POST]
+func AddDownloadTask(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req image_store.AddDownloadTaskRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	resp := new(image_store.AddDownloadTaskResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// SetStringValue .
+// @router /api/need-auth/conf/set-string-value [POST]
+func SetStringValue(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req conf.SetStringValueRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	_, err = conf_value.SetConfStringValue(ctx, req.Key, req.Value)
+	if err != nil {
+		respx.Fail(c, -1, err.Error())
+		return
+	}
+
+	respx.Success(c)
+}
+
+// GetMemberValue .
+// @router /api/need-auth/conf/get-member-value [GET]
+func GetMemberValue(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req conf.GetMemberValueRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	value, err := conf_value.GetConfMemberValue(ctx, req.Key)
+	if err != nil {
+		respx.Fail(c, -1, err.Error())
+		return
+	}
+
+	respx.SuccessWith(c, &conf.GetMemberValueResponseData{Value: value})
+}
+
+// SetMemberValue .
+// @router /api/need-auth/conf/set-member-value [POST]
+func SetMemberValue(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req conf.SetMemberValueRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	err = conf_value.SetConfMemberValue(ctx, req.Key, req.Value)
+	if err != nil {
+		respx.Fail(c, -1, err.Error())
+		return
+	}
+
+	respx.Success(c)
 }

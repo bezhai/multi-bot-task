@@ -26,3 +26,12 @@ func Map[From any, To any](src []From, fn func(From) To) []To {
 
 	return dst
 }
+
+func Contains[T comparable](s []T, v T) bool {
+	for _, vv := range s {
+		if vv == v {
+			return true
+		}
+	}
+	return false
+}

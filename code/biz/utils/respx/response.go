@@ -39,5 +39,14 @@ func Fail(c *app.RequestContext, code int, msg string) {
 		"msg":  msg,
 	}
 
-	c.JSON(200, resp)
+	c.JSON(code, resp)
+}
+
+func FailWithError(c *app.RequestContext, code int, err error) {
+	if err != nil {
+		msg := err.Error()
+		Fail(c, code, msg)
+	} else {
+		Success(c)
+	}
 }

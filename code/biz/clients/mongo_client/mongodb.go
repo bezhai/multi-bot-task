@@ -7,13 +7,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/bezhai/multi-bot-task/biz/model/pixiv_model"
+	"github.com/bezhai/multi-bot-task/biz/model/image_store"
+	"github.com/bezhai/multi-bot-task/biz/model/translation"
 	"github.com/bezhai/multi-bot-task/utils/env_utils"
 )
 
-var ImgCollection *MongoCollection[pixiv_model.PixivImageInfo]
-var TranslateMap *MongoCollection[pixiv_model.TranslateWord]
-var DownloadTaskMap *MongoCollection[pixiv_model.DownloadTask]
+var ImgCollection *MongoCollection[image_store.PixivImageMetaInfo]
+var TranslateMap *MongoCollection[translation.TranslateWord]
+var DownloadTaskMap *MongoCollection[image_store.DownloadTask]
 
 var db *mongo.Client
 
@@ -29,9 +30,9 @@ func InitMongoDb() {
 	if err != nil {
 		panic(err)
 	}
-	ImgCollection = GenCollection[pixiv_model.PixivImageInfo]("img_map")
-	TranslateMap = GenCollection[pixiv_model.TranslateWord]("trans_map")
-	DownloadTaskMap = GenCollection[pixiv_model.DownloadTask]("download_task")
+	ImgCollection = GenCollection[image_store.PixivImageMetaInfo]("img_map")
+	TranslateMap = GenCollection[translation.TranslateWord]("trans_map")
+	DownloadTaskMap = GenCollection[image_store.DownloadTask]("download_task")
 }
 
 func GenCollection[T any](name string) *MongoCollection[T] {

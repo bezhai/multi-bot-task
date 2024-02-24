@@ -7,10 +7,33 @@ import (
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
+	"github.com/bezhai/multi-bot-task/biz/model/data_trans"
+	"github.com/bezhai/multi-bot-task/biz/model/image_store"
+	"github.com/bezhai/multi-bot-task/biz/model/translation"
 )
 
 type ChiweiBotService interface {
 	GetStringValue(ctx context.Context, request *conf.GetStringValueRequest) (r *conf.GetStringValueResponse, err error)
+
+	SetStringValue(ctx context.Context, request *conf.SetStringValueRequest) (r *conf.SetStringValueResponse, err error)
+
+	GetMemberValue(ctx context.Context, request *conf.GetMemberValueRequest) (r *conf.GetMemberValueResponse, err error)
+
+	SetMemberValue(ctx context.Context, request *conf.SetMemberValueRequest) (r *conf.SetMemberValueResponse, err error)
+
+	ListPixivImageMetaInfo(ctx context.Context, request *image_store.ListPixivImageMetaInfoRequest) (r *image_store.ListPixivImageMetaInfoResponse, err error)
+
+	UpdatePixivImageStatus(ctx context.Context, request *image_store.UpdatePixivImageStatusRequest) (r *image_store.UpdatePixivImageStatusResponse, err error)
+
+	AddDownloadTask(ctx context.Context, request *image_store.AddDownloadTaskRequest) (r *image_store.AddDownloadTaskResponse, err error)
+
+	DeleteTranslation(ctx context.Context, request *translation.DeleteTranslationRequest) (r *translation.DeleteTranslationResponse, err error)
+
+	ListTranslation(ctx context.Context, request *translation.ListTranslationRequest) (r *translation.ListTranslationResponse, err error)
+
+	UpdateTranslation(ctx context.Context, request *translation.UpdateTranslationRequest) (r *translation.UpdateTranslationResponse, err error)
+
+	UploadTosFileToLark(ctx context.Context, request *data_trans.UploadTosFileToLarkRequest) (r *data_trans.UploadTosFileToLarkResponse, err error)
 }
 
 type ChiweiBotServiceClient struct {
@@ -48,6 +71,96 @@ func (p *ChiweiBotServiceClient) GetStringValue(ctx context.Context, request *co
 	}
 	return _result.GetSuccess(), nil
 }
+func (p *ChiweiBotServiceClient) SetStringValue(ctx context.Context, request *conf.SetStringValueRequest) (r *conf.SetStringValueResponse, err error) {
+	var _args ChiweiBotServiceSetStringValueArgs
+	_args.Request = request
+	var _result ChiweiBotServiceSetStringValueResult
+	if err = p.Client_().Call(ctx, "SetStringValue", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) GetMemberValue(ctx context.Context, request *conf.GetMemberValueRequest) (r *conf.GetMemberValueResponse, err error) {
+	var _args ChiweiBotServiceGetMemberValueArgs
+	_args.Request = request
+	var _result ChiweiBotServiceGetMemberValueResult
+	if err = p.Client_().Call(ctx, "GetMemberValue", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) SetMemberValue(ctx context.Context, request *conf.SetMemberValueRequest) (r *conf.SetMemberValueResponse, err error) {
+	var _args ChiweiBotServiceSetMemberValueArgs
+	_args.Request = request
+	var _result ChiweiBotServiceSetMemberValueResult
+	if err = p.Client_().Call(ctx, "SetMemberValue", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) ListPixivImageMetaInfo(ctx context.Context, request *image_store.ListPixivImageMetaInfoRequest) (r *image_store.ListPixivImageMetaInfoResponse, err error) {
+	var _args ChiweiBotServiceListPixivImageMetaInfoArgs
+	_args.Request = request
+	var _result ChiweiBotServiceListPixivImageMetaInfoResult
+	if err = p.Client_().Call(ctx, "ListPixivImageMetaInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) UpdatePixivImageStatus(ctx context.Context, request *image_store.UpdatePixivImageStatusRequest) (r *image_store.UpdatePixivImageStatusResponse, err error) {
+	var _args ChiweiBotServiceUpdatePixivImageStatusArgs
+	_args.Request = request
+	var _result ChiweiBotServiceUpdatePixivImageStatusResult
+	if err = p.Client_().Call(ctx, "UpdatePixivImageStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) AddDownloadTask(ctx context.Context, request *image_store.AddDownloadTaskRequest) (r *image_store.AddDownloadTaskResponse, err error) {
+	var _args ChiweiBotServiceAddDownloadTaskArgs
+	_args.Request = request
+	var _result ChiweiBotServiceAddDownloadTaskResult
+	if err = p.Client_().Call(ctx, "AddDownloadTask", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) DeleteTranslation(ctx context.Context, request *translation.DeleteTranslationRequest) (r *translation.DeleteTranslationResponse, err error) {
+	var _args ChiweiBotServiceDeleteTranslationArgs
+	_args.Request = request
+	var _result ChiweiBotServiceDeleteTranslationResult
+	if err = p.Client_().Call(ctx, "DeleteTranslation", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) ListTranslation(ctx context.Context, request *translation.ListTranslationRequest) (r *translation.ListTranslationResponse, err error) {
+	var _args ChiweiBotServiceListTranslationArgs
+	_args.Request = request
+	var _result ChiweiBotServiceListTranslationResult
+	if err = p.Client_().Call(ctx, "ListTranslation", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) UpdateTranslation(ctx context.Context, request *translation.UpdateTranslationRequest) (r *translation.UpdateTranslationResponse, err error) {
+	var _args ChiweiBotServiceUpdateTranslationArgs
+	_args.Request = request
+	var _result ChiweiBotServiceUpdateTranslationResult
+	if err = p.Client_().Call(ctx, "UpdateTranslation", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ChiweiBotServiceClient) UploadTosFileToLark(ctx context.Context, request *data_trans.UploadTosFileToLarkRequest) (r *data_trans.UploadTosFileToLarkResponse, err error) {
+	var _args ChiweiBotServiceUploadTosFileToLarkArgs
+	_args.Request = request
+	var _result ChiweiBotServiceUploadTosFileToLarkResult
+	if err = p.Client_().Call(ctx, "UploadTosFileToLark", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
 
 type ChiweiBotServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
@@ -70,6 +183,16 @@ func (p *ChiweiBotServiceProcessor) ProcessorMap() map[string]thrift.TProcessorF
 func NewChiweiBotServiceProcessor(handler ChiweiBotService) *ChiweiBotServiceProcessor {
 	self := &ChiweiBotServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
 	self.AddToProcessorMap("GetStringValue", &chiweiBotServiceProcessorGetStringValue{handler: handler})
+	self.AddToProcessorMap("SetStringValue", &chiweiBotServiceProcessorSetStringValue{handler: handler})
+	self.AddToProcessorMap("GetMemberValue", &chiweiBotServiceProcessorGetMemberValue{handler: handler})
+	self.AddToProcessorMap("SetMemberValue", &chiweiBotServiceProcessorSetMemberValue{handler: handler})
+	self.AddToProcessorMap("ListPixivImageMetaInfo", &chiweiBotServiceProcessorListPixivImageMetaInfo{handler: handler})
+	self.AddToProcessorMap("UpdatePixivImageStatus", &chiweiBotServiceProcessorUpdatePixivImageStatus{handler: handler})
+	self.AddToProcessorMap("AddDownloadTask", &chiweiBotServiceProcessorAddDownloadTask{handler: handler})
+	self.AddToProcessorMap("DeleteTranslation", &chiweiBotServiceProcessorDeleteTranslation{handler: handler})
+	self.AddToProcessorMap("ListTranslation", &chiweiBotServiceProcessorListTranslation{handler: handler})
+	self.AddToProcessorMap("UpdateTranslation", &chiweiBotServiceProcessorUpdateTranslation{handler: handler})
+	self.AddToProcessorMap("UploadTosFileToLark", &chiweiBotServiceProcessorUploadTosFileToLark{handler: handler})
 	return self
 }
 func (p *ChiweiBotServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -121,6 +244,486 @@ func (p *chiweiBotServiceProcessorGetStringValue) Process(ctx context.Context, s
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("GetStringValue", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorSetStringValue struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorSetStringValue) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceSetStringValueArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("SetStringValue", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceSetStringValueResult{}
+	var retval *conf.SetStringValueResponse
+	if retval, err2 = p.handler.SetStringValue(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing SetStringValue: "+err2.Error())
+		oprot.WriteMessageBegin("SetStringValue", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("SetStringValue", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorGetMemberValue struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorGetMemberValue) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceGetMemberValueArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetMemberValue", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceGetMemberValueResult{}
+	var retval *conf.GetMemberValueResponse
+	if retval, err2 = p.handler.GetMemberValue(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetMemberValue: "+err2.Error())
+		oprot.WriteMessageBegin("GetMemberValue", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetMemberValue", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorSetMemberValue struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorSetMemberValue) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceSetMemberValueArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("SetMemberValue", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceSetMemberValueResult{}
+	var retval *conf.SetMemberValueResponse
+	if retval, err2 = p.handler.SetMemberValue(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing SetMemberValue: "+err2.Error())
+		oprot.WriteMessageBegin("SetMemberValue", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("SetMemberValue", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorListPixivImageMetaInfo struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorListPixivImageMetaInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceListPixivImageMetaInfoArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("ListPixivImageMetaInfo", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceListPixivImageMetaInfoResult{}
+	var retval *image_store.ListPixivImageMetaInfoResponse
+	if retval, err2 = p.handler.ListPixivImageMetaInfo(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ListPixivImageMetaInfo: "+err2.Error())
+		oprot.WriteMessageBegin("ListPixivImageMetaInfo", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("ListPixivImageMetaInfo", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorUpdatePixivImageStatus struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorUpdatePixivImageStatus) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceUpdatePixivImageStatusArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("UpdatePixivImageStatus", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceUpdatePixivImageStatusResult{}
+	var retval *image_store.UpdatePixivImageStatusResponse
+	if retval, err2 = p.handler.UpdatePixivImageStatus(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdatePixivImageStatus: "+err2.Error())
+		oprot.WriteMessageBegin("UpdatePixivImageStatus", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("UpdatePixivImageStatus", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorAddDownloadTask struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorAddDownloadTask) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceAddDownloadTaskArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("AddDownloadTask", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceAddDownloadTaskResult{}
+	var retval *image_store.AddDownloadTaskResponse
+	if retval, err2 = p.handler.AddDownloadTask(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing AddDownloadTask: "+err2.Error())
+		oprot.WriteMessageBegin("AddDownloadTask", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("AddDownloadTask", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorDeleteTranslation struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorDeleteTranslation) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceDeleteTranslationArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("DeleteTranslation", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceDeleteTranslationResult{}
+	var retval *translation.DeleteTranslationResponse
+	if retval, err2 = p.handler.DeleteTranslation(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing DeleteTranslation: "+err2.Error())
+		oprot.WriteMessageBegin("DeleteTranslation", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("DeleteTranslation", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorListTranslation struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorListTranslation) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceListTranslationArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("ListTranslation", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceListTranslationResult{}
+	var retval *translation.ListTranslationResponse
+	if retval, err2 = p.handler.ListTranslation(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ListTranslation: "+err2.Error())
+		oprot.WriteMessageBegin("ListTranslation", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("ListTranslation", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorUpdateTranslation struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorUpdateTranslation) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceUpdateTranslationArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("UpdateTranslation", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceUpdateTranslationResult{}
+	var retval *translation.UpdateTranslationResponse
+	if retval, err2 = p.handler.UpdateTranslation(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdateTranslation: "+err2.Error())
+		oprot.WriteMessageBegin("UpdateTranslation", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("UpdateTranslation", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type chiweiBotServiceProcessorUploadTosFileToLark struct {
+	handler ChiweiBotService
+}
+
+func (p *chiweiBotServiceProcessorUploadTosFileToLark) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ChiweiBotServiceUploadTosFileToLarkArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("UploadTosFileToLark", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ChiweiBotServiceUploadTosFileToLarkResult{}
+	var retval *data_trans.UploadTosFileToLarkResponse
+	if retval, err2 = p.handler.UploadTosFileToLark(ctx, args.Request); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UploadTosFileToLark: "+err2.Error())
+		oprot.WriteMessageBegin("UploadTosFileToLark", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("UploadTosFileToLark", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -421,5 +1024,2865 @@ func (p *ChiweiBotServiceGetStringValueResult) String() string {
 		return "<nil>"
 	}
 	return fmt.Sprintf("ChiweiBotServiceGetStringValueResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceSetStringValueArgs struct {
+	Request *conf.SetStringValueRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceSetStringValueArgs() *ChiweiBotServiceSetStringValueArgs {
+	return &ChiweiBotServiceSetStringValueArgs{}
+}
+
+var ChiweiBotServiceSetStringValueArgs_Request_DEFAULT *conf.SetStringValueRequest
+
+func (p *ChiweiBotServiceSetStringValueArgs) GetRequest() (v *conf.SetStringValueRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceSetStringValueArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceSetStringValueArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceSetStringValueArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceSetStringValueArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceSetStringValueArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetStringValueArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = conf.NewSetStringValueRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceSetStringValueArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SetStringValue_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetStringValueArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetStringValueArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceSetStringValueArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceSetStringValueResult struct {
+	Success *conf.SetStringValueResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceSetStringValueResult() *ChiweiBotServiceSetStringValueResult {
+	return &ChiweiBotServiceSetStringValueResult{}
+}
+
+var ChiweiBotServiceSetStringValueResult_Success_DEFAULT *conf.SetStringValueResponse
+
+func (p *ChiweiBotServiceSetStringValueResult) GetSuccess() (v *conf.SetStringValueResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceSetStringValueResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceSetStringValueResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceSetStringValueResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceSetStringValueResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceSetStringValueResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetStringValueResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = conf.NewSetStringValueResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceSetStringValueResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SetStringValue_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetStringValueResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetStringValueResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceSetStringValueResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceGetMemberValueArgs struct {
+	Request *conf.GetMemberValueRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceGetMemberValueArgs() *ChiweiBotServiceGetMemberValueArgs {
+	return &ChiweiBotServiceGetMemberValueArgs{}
+}
+
+var ChiweiBotServiceGetMemberValueArgs_Request_DEFAULT *conf.GetMemberValueRequest
+
+func (p *ChiweiBotServiceGetMemberValueArgs) GetRequest() (v *conf.GetMemberValueRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceGetMemberValueArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceGetMemberValueArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceGetMemberValueArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceGetMemberValueArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceGetMemberValueArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceGetMemberValueArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = conf.NewGetMemberValueRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceGetMemberValueArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetMemberValue_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceGetMemberValueArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceGetMemberValueArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceGetMemberValueArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceGetMemberValueResult struct {
+	Success *conf.GetMemberValueResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceGetMemberValueResult() *ChiweiBotServiceGetMemberValueResult {
+	return &ChiweiBotServiceGetMemberValueResult{}
+}
+
+var ChiweiBotServiceGetMemberValueResult_Success_DEFAULT *conf.GetMemberValueResponse
+
+func (p *ChiweiBotServiceGetMemberValueResult) GetSuccess() (v *conf.GetMemberValueResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceGetMemberValueResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceGetMemberValueResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceGetMemberValueResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceGetMemberValueResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceGetMemberValueResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceGetMemberValueResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = conf.NewGetMemberValueResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceGetMemberValueResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetMemberValue_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceGetMemberValueResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceGetMemberValueResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceGetMemberValueResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceSetMemberValueArgs struct {
+	Request *conf.SetMemberValueRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceSetMemberValueArgs() *ChiweiBotServiceSetMemberValueArgs {
+	return &ChiweiBotServiceSetMemberValueArgs{}
+}
+
+var ChiweiBotServiceSetMemberValueArgs_Request_DEFAULT *conf.SetMemberValueRequest
+
+func (p *ChiweiBotServiceSetMemberValueArgs) GetRequest() (v *conf.SetMemberValueRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceSetMemberValueArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceSetMemberValueArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceSetMemberValueArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceSetMemberValueArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceSetMemberValueArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetMemberValueArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = conf.NewSetMemberValueRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceSetMemberValueArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SetMemberValue_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetMemberValueArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetMemberValueArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceSetMemberValueArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceSetMemberValueResult struct {
+	Success *conf.SetMemberValueResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceSetMemberValueResult() *ChiweiBotServiceSetMemberValueResult {
+	return &ChiweiBotServiceSetMemberValueResult{}
+}
+
+var ChiweiBotServiceSetMemberValueResult_Success_DEFAULT *conf.SetMemberValueResponse
+
+func (p *ChiweiBotServiceSetMemberValueResult) GetSuccess() (v *conf.SetMemberValueResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceSetMemberValueResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceSetMemberValueResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceSetMemberValueResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceSetMemberValueResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceSetMemberValueResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetMemberValueResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = conf.NewSetMemberValueResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceSetMemberValueResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SetMemberValue_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetMemberValueResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceSetMemberValueResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceSetMemberValueResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceListPixivImageMetaInfoArgs struct {
+	Request *image_store.ListPixivImageMetaInfoRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceListPixivImageMetaInfoArgs() *ChiweiBotServiceListPixivImageMetaInfoArgs {
+	return &ChiweiBotServiceListPixivImageMetaInfoArgs{}
+}
+
+var ChiweiBotServiceListPixivImageMetaInfoArgs_Request_DEFAULT *image_store.ListPixivImageMetaInfoRequest
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) GetRequest() (v *image_store.ListPixivImageMetaInfoRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceListPixivImageMetaInfoArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceListPixivImageMetaInfoArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceListPixivImageMetaInfoArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = image_store.NewListPixivImageMetaInfoRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ListPixivImageMetaInfo_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceListPixivImageMetaInfoArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceListPixivImageMetaInfoResult struct {
+	Success *image_store.ListPixivImageMetaInfoResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceListPixivImageMetaInfoResult() *ChiweiBotServiceListPixivImageMetaInfoResult {
+	return &ChiweiBotServiceListPixivImageMetaInfoResult{}
+}
+
+var ChiweiBotServiceListPixivImageMetaInfoResult_Success_DEFAULT *image_store.ListPixivImageMetaInfoResponse
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) GetSuccess() (v *image_store.ListPixivImageMetaInfoResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceListPixivImageMetaInfoResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceListPixivImageMetaInfoResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceListPixivImageMetaInfoResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = image_store.NewListPixivImageMetaInfoResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ListPixivImageMetaInfo_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListPixivImageMetaInfoResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceListPixivImageMetaInfoResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceUpdatePixivImageStatusArgs struct {
+	Request *image_store.UpdatePixivImageStatusRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceUpdatePixivImageStatusArgs() *ChiweiBotServiceUpdatePixivImageStatusArgs {
+	return &ChiweiBotServiceUpdatePixivImageStatusArgs{}
+}
+
+var ChiweiBotServiceUpdatePixivImageStatusArgs_Request_DEFAULT *image_store.UpdatePixivImageStatusRequest
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) GetRequest() (v *image_store.UpdatePixivImageStatusRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceUpdatePixivImageStatusArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceUpdatePixivImageStatusArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceUpdatePixivImageStatusArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = image_store.NewUpdatePixivImageStatusRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdatePixivImageStatus_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceUpdatePixivImageStatusArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceUpdatePixivImageStatusResult struct {
+	Success *image_store.UpdatePixivImageStatusResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceUpdatePixivImageStatusResult() *ChiweiBotServiceUpdatePixivImageStatusResult {
+	return &ChiweiBotServiceUpdatePixivImageStatusResult{}
+}
+
+var ChiweiBotServiceUpdatePixivImageStatusResult_Success_DEFAULT *image_store.UpdatePixivImageStatusResponse
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) GetSuccess() (v *image_store.UpdatePixivImageStatusResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceUpdatePixivImageStatusResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceUpdatePixivImageStatusResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceUpdatePixivImageStatusResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = image_store.NewUpdatePixivImageStatusResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdatePixivImageStatus_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdatePixivImageStatusResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceUpdatePixivImageStatusResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceAddDownloadTaskArgs struct {
+	Request *image_store.AddDownloadTaskRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceAddDownloadTaskArgs() *ChiweiBotServiceAddDownloadTaskArgs {
+	return &ChiweiBotServiceAddDownloadTaskArgs{}
+}
+
+var ChiweiBotServiceAddDownloadTaskArgs_Request_DEFAULT *image_store.AddDownloadTaskRequest
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) GetRequest() (v *image_store.AddDownloadTaskRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceAddDownloadTaskArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceAddDownloadTaskArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceAddDownloadTaskArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = image_store.NewAddDownloadTaskRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("AddDownloadTask_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceAddDownloadTaskArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceAddDownloadTaskResult struct {
+	Success *image_store.AddDownloadTaskResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceAddDownloadTaskResult() *ChiweiBotServiceAddDownloadTaskResult {
+	return &ChiweiBotServiceAddDownloadTaskResult{}
+}
+
+var ChiweiBotServiceAddDownloadTaskResult_Success_DEFAULT *image_store.AddDownloadTaskResponse
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) GetSuccess() (v *image_store.AddDownloadTaskResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceAddDownloadTaskResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceAddDownloadTaskResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceAddDownloadTaskResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = image_store.NewAddDownloadTaskResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("AddDownloadTask_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceAddDownloadTaskResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceAddDownloadTaskResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceDeleteTranslationArgs struct {
+	Request *translation.DeleteTranslationRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceDeleteTranslationArgs() *ChiweiBotServiceDeleteTranslationArgs {
+	return &ChiweiBotServiceDeleteTranslationArgs{}
+}
+
+var ChiweiBotServiceDeleteTranslationArgs_Request_DEFAULT *translation.DeleteTranslationRequest
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) GetRequest() (v *translation.DeleteTranslationRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceDeleteTranslationArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceDeleteTranslationArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceDeleteTranslationArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = translation.NewDeleteTranslationRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("DeleteTranslation_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceDeleteTranslationArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceDeleteTranslationArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceDeleteTranslationResult struct {
+	Success *translation.DeleteTranslationResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceDeleteTranslationResult() *ChiweiBotServiceDeleteTranslationResult {
+	return &ChiweiBotServiceDeleteTranslationResult{}
+}
+
+var ChiweiBotServiceDeleteTranslationResult_Success_DEFAULT *translation.DeleteTranslationResponse
+
+func (p *ChiweiBotServiceDeleteTranslationResult) GetSuccess() (v *translation.DeleteTranslationResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceDeleteTranslationResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceDeleteTranslationResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceDeleteTranslationResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceDeleteTranslationResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceDeleteTranslationResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceDeleteTranslationResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = translation.NewDeleteTranslationResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceDeleteTranslationResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("DeleteTranslation_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceDeleteTranslationResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceDeleteTranslationResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceDeleteTranslationResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceListTranslationArgs struct {
+	Request *translation.ListTranslationRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceListTranslationArgs() *ChiweiBotServiceListTranslationArgs {
+	return &ChiweiBotServiceListTranslationArgs{}
+}
+
+var ChiweiBotServiceListTranslationArgs_Request_DEFAULT *translation.ListTranslationRequest
+
+func (p *ChiweiBotServiceListTranslationArgs) GetRequest() (v *translation.ListTranslationRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceListTranslationArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceListTranslationArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceListTranslationArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceListTranslationArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceListTranslationArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListTranslationArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = translation.NewListTranslationRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceListTranslationArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ListTranslation_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListTranslationArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListTranslationArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceListTranslationArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceListTranslationResult struct {
+	Success *translation.ListTranslationResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceListTranslationResult() *ChiweiBotServiceListTranslationResult {
+	return &ChiweiBotServiceListTranslationResult{}
+}
+
+var ChiweiBotServiceListTranslationResult_Success_DEFAULT *translation.ListTranslationResponse
+
+func (p *ChiweiBotServiceListTranslationResult) GetSuccess() (v *translation.ListTranslationResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceListTranslationResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceListTranslationResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceListTranslationResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceListTranslationResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceListTranslationResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListTranslationResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = translation.NewListTranslationResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceListTranslationResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ListTranslation_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListTranslationResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceListTranslationResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceListTranslationResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceUpdateTranslationArgs struct {
+	Request *translation.UpdateTranslationRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceUpdateTranslationArgs() *ChiweiBotServiceUpdateTranslationArgs {
+	return &ChiweiBotServiceUpdateTranslationArgs{}
+}
+
+var ChiweiBotServiceUpdateTranslationArgs_Request_DEFAULT *translation.UpdateTranslationRequest
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) GetRequest() (v *translation.UpdateTranslationRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceUpdateTranslationArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceUpdateTranslationArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceUpdateTranslationArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = translation.NewUpdateTranslationRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateTranslation_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdateTranslationArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceUpdateTranslationArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceUpdateTranslationResult struct {
+	Success *translation.UpdateTranslationResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceUpdateTranslationResult() *ChiweiBotServiceUpdateTranslationResult {
+	return &ChiweiBotServiceUpdateTranslationResult{}
+}
+
+var ChiweiBotServiceUpdateTranslationResult_Success_DEFAULT *translation.UpdateTranslationResponse
+
+func (p *ChiweiBotServiceUpdateTranslationResult) GetSuccess() (v *translation.UpdateTranslationResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceUpdateTranslationResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceUpdateTranslationResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceUpdateTranslationResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceUpdateTranslationResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceUpdateTranslationResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdateTranslationResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = translation.NewUpdateTranslationResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceUpdateTranslationResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateTranslation_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdateTranslationResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUpdateTranslationResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceUpdateTranslationResult(%+v)", *p)
+
+}
+
+type ChiweiBotServiceUploadTosFileToLarkArgs struct {
+	Request *data_trans.UploadTosFileToLarkRequest `thrift:"request,1"`
+}
+
+func NewChiweiBotServiceUploadTosFileToLarkArgs() *ChiweiBotServiceUploadTosFileToLarkArgs {
+	return &ChiweiBotServiceUploadTosFileToLarkArgs{}
+}
+
+var ChiweiBotServiceUploadTosFileToLarkArgs_Request_DEFAULT *data_trans.UploadTosFileToLarkRequest
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) GetRequest() (v *data_trans.UploadTosFileToLarkRequest) {
+	if !p.IsSetRequest() {
+		return ChiweiBotServiceUploadTosFileToLarkArgs_Request_DEFAULT
+	}
+	return p.Request
+}
+
+var fieldIDToName_ChiweiBotServiceUploadTosFileToLarkArgs = map[int16]string{
+	1: "request",
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) IsSetRequest() bool {
+	return p.Request != nil
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceUploadTosFileToLarkArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Request = data_trans.NewUploadTosFileToLarkRequest()
+	if err := p.Request.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UploadTosFileToLark_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("request", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Request.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceUploadTosFileToLarkArgs(%+v)", *p)
+
+}
+
+type ChiweiBotServiceUploadTosFileToLarkResult struct {
+	Success *data_trans.UploadTosFileToLarkResponse `thrift:"success,0,optional"`
+}
+
+func NewChiweiBotServiceUploadTosFileToLarkResult() *ChiweiBotServiceUploadTosFileToLarkResult {
+	return &ChiweiBotServiceUploadTosFileToLarkResult{}
+}
+
+var ChiweiBotServiceUploadTosFileToLarkResult_Success_DEFAULT *data_trans.UploadTosFileToLarkResponse
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) GetSuccess() (v *data_trans.UploadTosFileToLarkResponse) {
+	if !p.IsSetSuccess() {
+		return ChiweiBotServiceUploadTosFileToLarkResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ChiweiBotServiceUploadTosFileToLarkResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ChiweiBotServiceUploadTosFileToLarkResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = data_trans.NewUploadTosFileToLarkResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UploadTosFileToLark_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ChiweiBotServiceUploadTosFileToLarkResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ChiweiBotServiceUploadTosFileToLarkResult(%+v)", *p)
 
 }
