@@ -30,7 +30,6 @@ func Register(r *server.Hertz) {
 			}
 			{
 				_image_store := _need_auth.Group("/image-store", _image_storeMw()...)
-				_image_store.POST("/add-task", append(_adddownloadtaskMw(), chiwei_bot.AddDownloadTask)...)
 				_image_store.GET("/list-info", append(_listpixivimagemetainfoMw(), chiwei_bot.ListPixivImageMetaInfo)...)
 				_image_store.POST("/update-status", append(_updatepixivimagestatusMw(), chiwei_bot.UpdatePixivImageStatus)...)
 			}
@@ -45,6 +44,7 @@ func Register(r *server.Hertz) {
 			_need_sk := _api.Group("/need-sk", _need_skMw()...)
 			{
 				_data_trans := _need_sk.Group("/data-trans", _data_transMw()...)
+				_data_trans.POST("/proxy", append(_proxyMw(), chiwei_bot.Proxy)...)
 				_data_trans.POST("/upload-to-lark", append(_uploadtosfiletolarkMw(), chiwei_bot.UploadTosFileToLark)...)
 			}
 		}

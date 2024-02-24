@@ -14,7 +14,6 @@ import (
 
 var ImgCollection *MongoCollection[image_store.PixivImageMetaInfo]
 var TranslateMap *MongoCollection[translation.TranslateWord]
-var DownloadTaskMap *MongoCollection[image_store.DownloadTask]
 
 var db *mongo.Client
 
@@ -32,7 +31,6 @@ func InitMongoDb() {
 	}
 	ImgCollection = GenCollection[image_store.PixivImageMetaInfo]("img_map")
 	TranslateMap = GenCollection[translation.TranslateWord]("trans_map")
-	DownloadTaskMap = GenCollection[image_store.DownloadTask]("download_task")
 }
 
 func GenCollection[T any](name string) *MongoCollection[T] {

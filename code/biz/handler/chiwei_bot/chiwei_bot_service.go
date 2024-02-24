@@ -13,6 +13,8 @@ import (
 	image_store "github.com/bezhai/multi-bot-task/biz/model/image_store"
 	translation "github.com/bezhai/multi-bot-task/biz/model/translation"
 	"github.com/bezhai/multi-bot-task/biz/service/conf_value"
+	"github.com/bezhai/multi-bot-task/biz/service/image_db"
+	"github.com/bezhai/multi-bot-task/biz/service/proxy"
 	"github.com/bezhai/multi-bot-task/biz/utils/respx"
 )
 
@@ -29,7 +31,7 @@ func GetStringValue(ctx context.Context, c *app.RequestContext) {
 
 	value, err := conf_value.GetConfStringValue(ctx, req.Key)
 	if err != nil {
-		respx.Fail(c, -1, err.Error())
+		respx.Fail(c, 500, err.Error())
 		return
 	}
 
@@ -63,9 +65,17 @@ func ListPixivImageMetaInfo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(image_store.ListPixivImageMetaInfoResponse)
+	infos, total, err := image_db.ListImages(ctx, &req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusInternalServerError, err)
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.SuccessWith(c, &image_store.ListPixivImageMetaInfoResponseData{
+		PixivImageMetaInfos: infos,
+		Total:               int32(total),
+	})
+
 }
 
 // UpdatePixivImageStatus .
@@ -79,9 +89,13 @@ func UpdatePixivImageStatus(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(image_store.UpdatePixivImageStatusResponse)
+	err = image_db.UpdateImageStatus(ctx, &req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusInternalServerError, err)
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.Success(c)
 }
 
 // DeleteTranslation .
@@ -132,22 +146,6 @@ func UpdateTranslation(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, resp)
 }
 
-// AddDownloadTask .
-// @router /api/need-auth/image-store/add-task [POST]
-func AddDownloadTask(ctx context.Context, c *app.RequestContext) {
-	var err error
-	var req image_store.AddDownloadTaskRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		respx.FailWithError(c, consts.StatusBadRequest, err)
-		return
-	}
-
-	resp := new(image_store.AddDownloadTaskResponse)
-
-	c.JSON(consts.StatusOK, resp)
-}
-
 // SetStringValue .
 // @router /api/need-auth/conf/set-string-value [POST]
 func SetStringValue(ctx context.Context, c *app.RequestContext) {
@@ -161,7 +159,7 @@ func SetStringValue(ctx context.Context, c *app.RequestContext) {
 
 	_, err = conf_value.SetConfStringValue(ctx, req.Key, req.Value)
 	if err != nil {
-		respx.Fail(c, -1, err.Error())
+		respx.Fail(c, 500, err.Error())
 		return
 	}
 
@@ -181,7 +179,7 @@ func GetMemberValue(ctx context.Context, c *app.RequestContext) {
 
 	value, err := conf_value.GetConfMemberValue(ctx, req.Key)
 	if err != nil {
-		respx.Fail(c, -1, err.Error())
+		respx.Fail(c, 500, err.Error())
 		return
 	}
 
@@ -201,9 +199,35 @@ func SetMemberValue(ctx context.Context, c *app.RequestContext) {
 
 	err = conf_value.SetConfMemberValue(ctx, req.Key, req.Value)
 	if err != nil {
-		respx.Fail(c, -1, err.Error())
+		respx.Fail(c, 500, err.Error())
 		return
 	}
 
 	respx.Success(c)
+}
+
+// Proxy .
+// @router /api/need-auth/data-trans/proxy [GET]
+func Proxy(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req data_trans.ProxyRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	respBody, respHeader, err := proxy.Proxy(ctx, req.URL, req.Referer)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusInternalServerError, err)
+		return
+	}
+
+	for _, header := range respHeader {
+		for k, v := range header {
+			c.Header(k, v)
+		}
+	}
+
+	c.Data(200, "application/json", respBody)
 }

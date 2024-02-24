@@ -31,7 +31,7 @@ struct ListPixivImageMetaInfoRequest {
     1: optional string author; // 模糊查询
     2: optional string author_id; // 精确查询
     3: optional list<string> tags; // 按每个tag模糊查询的交集
-    4: optional StatusMode status;
+    4: optional StatusMode status = StatusMode.StatusVisible;
     5: optional i32 page = 1;
     6: optional i32 page_size = 10;
     7: optional i32 illust_id;
@@ -60,35 +60,6 @@ struct UpdatePixivImageStatusRequest {
 }
 
 struct UpdatePixivImageStatusResponse {
-    1: required i32 code;
-    2: required string msg;
-}
-
-enum DownloadTaskStatus {
-    DownloadTaskStatusPending = 1 // 待执行
-    DownloadTaskStatusRunning = 2 // 执行中
-    DownloadTaskStatusFail    = 3 // 失败
-    DownloadTaskStatusDead    = 4 // 死信
-    DownloadTaskStatusSuccess = 5 // 成功
-}
-
-struct DownloadTask {
-    1: required string illust_id (go.tag = "bson:\"illust_id\"");
-    2: required i32 r18_index (go.tag = "bson:\"r18_index\"");
-    3: required DownloadTaskStatus status (go.tag = "bson:\"status\"");
-    4: required string create_time (go.tag = "bson:\"create_time\"");
-    5: required string update_time (go.tag = "bson:\"update_time\"");
-    6: required i32 retry_time (go.tag = "bson:\"retry_time\"");
-    7: required string last_run_time (go.tag = "bson:\"last_run_time\"");
-    8: required string last_run_error (go.tag = "bson:\"last_run_error\"");
-}
-
-struct AddDownloadTaskRequest {
-    1: required string illust_id (api.vd="len($) > 0; msg:'illust_id is empty'");
-    2: required i32 r18_index (api.vd="$ >= 0; msg:'r18_index must be greater than or equal to 0'");
-}
-
-struct AddDownloadTaskResponse {
     1: required i32 code;
     2: required string msg;
 }

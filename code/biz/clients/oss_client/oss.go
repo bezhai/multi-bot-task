@@ -1,4 +1,4 @@
-package client
+package oss_client
 
 import (
 	"context"
@@ -15,11 +15,11 @@ import (
 	"github.com/bezhai/multi-bot-task/utils/env_utils"
 )
 
-var internelBucket *oss.Bucket
+var internalBucket *oss.Bucket
 var cnameBucket *oss.Bucket
 
 func InitOssClient() {
-	internelBucket = newOssClient(false)
+	internalBucket = newOssClient(false)
 	cnameBucket = newOssClient(true)
 }
 
@@ -48,7 +48,7 @@ func newOssClient(useCname bool) *oss.Bucket {
 }
 
 func PutObject(ctx context.Context, fileName string, reader io.Reader) error {
-	err := internelBucket.PutObject(fileName, reader)
+	err := internalBucket.PutObject(fileName, reader)
 	if err != nil {
 		logger.CtxWarnf(ctx, "put object %s fail, err:%v", fileName, err)
 	} else {
@@ -58,7 +58,7 @@ func PutObject(ctx context.Context, fileName string, reader io.Reader) error {
 }
 
 func GetObject(ctx context.Context, fileName string) (io.ReadCloser, error) {
-	reader, err := internelBucket.GetObject(fileName)
+	reader, err := internalBucket.GetObject(fileName)
 	if err != nil {
 		logger.CtxWarnf(ctx, "put object %s fail, err:%v", fileName, err)
 	} else {

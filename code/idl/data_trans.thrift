@@ -13,3 +13,11 @@ struct UploadTosFileToLarkResponse {
     2: required string msg;
     3: optional UploadTosFileToLarkResponseData data;
 }
+
+struct ProxyRequest {
+    1: required string url;
+    2: required string referer;
+}
+
+struct ProxyResponse {
+}

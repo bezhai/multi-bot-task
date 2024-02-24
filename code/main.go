@@ -8,6 +8,7 @@ import (
 	"github.com/bezhai/multi-bot-task/biz/clients/http_client"
 	"github.com/bezhai/multi-bot-task/biz/clients/lark_client"
 	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
+	"github.com/bezhai/multi-bot-task/biz/clients/oss_client"
 	"github.com/bezhai/multi-bot-task/biz/clients/redis_client"
 )
 
@@ -18,6 +19,7 @@ func main() {
 	lark_client.InitOfficialBot()
 	mongo_client.InitMongoDb()
 	redis_client.InitRedis()
+	oss_client.InitOssClient()
 
 	register(h)
 	h.Spin()

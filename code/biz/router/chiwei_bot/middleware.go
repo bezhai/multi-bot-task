@@ -100,3 +100,13 @@ func _setstringvalueMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _proxyMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _data_trans0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
