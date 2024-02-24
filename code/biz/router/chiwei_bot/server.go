@@ -30,13 +30,13 @@ func Register(r *server.Hertz) {
 			}
 			{
 				_image_store := _need_auth.Group("/image-store", _image_storeMw()...)
-				_image_store.GET("/list-info", append(_listpixivimagemetainfoMw(), chiwei_bot.ListPixivImageMetaInfo)...)
+				_image_store.POST("/list-info", append(_listpixivimagemetainfoMw(), chiwei_bot.ListPixivImageMetaInfo)...)
 				_image_store.POST("/update-status", append(_updatepixivimagestatusMw(), chiwei_bot.UpdatePixivImageStatus)...)
 			}
 			{
 				_translation := _need_auth.Group("/translation", _translationMw()...)
 				_translation.POST("/delete", append(_deletetranslationMw(), chiwei_bot.DeleteTranslation)...)
-				_translation.POST("/list", append(_listtranslationMw(), chiwei_bot.ListTranslation)...)
+				_translation.GET("/list", append(_listtranslationMw(), chiwei_bot.ListTranslation)...)
 				_translation.POST("/update", append(_updatetranslationMw(), chiwei_bot.UpdateTranslation)...)
 			}
 		}
