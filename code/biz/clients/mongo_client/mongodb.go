@@ -7,12 +7,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/bezhai/multi-bot-task/biz/model/image_store"
+	"github.com/bezhai/multi-bot-task/biz/model/temp"
 	"github.com/bezhai/multi-bot-task/biz/model/translation"
 	"github.com/bezhai/multi-bot-task/utils/env_utils"
 )
 
-var ImgCollection *MongoCollection[image_store.PixivImageMetaInfo]
+var ImgCollection *MongoCollection[temp.PixivImageMetaInfo]
 var TranslateMap *MongoCollection[translation.TranslateWord]
 
 var db *mongo.Client
@@ -29,7 +29,7 @@ func InitMongoDb() {
 	if err != nil {
 		panic(err)
 	}
-	ImgCollection = GenCollection[image_store.PixivImageMetaInfo]("img_map")
+	ImgCollection = GenCollection[temp.PixivImageMetaInfo]("img_map")
 	TranslateMap = GenCollection[translation.TranslateWord]("trans_map")
 }
 

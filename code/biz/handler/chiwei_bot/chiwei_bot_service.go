@@ -11,6 +11,7 @@ import (
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
 	data_trans "github.com/bezhai/multi-bot-task/biz/model/data_trans"
 	image_store "github.com/bezhai/multi-bot-task/biz/model/image_store"
+	"github.com/bezhai/multi-bot-task/biz/model/temp"
 	translation "github.com/bezhai/multi-bot-task/biz/model/translation"
 	"github.com/bezhai/multi-bot-task/biz/service/conf_value"
 	"github.com/bezhai/multi-bot-task/biz/service/image_db"
@@ -71,7 +72,7 @@ func ListPixivImageMetaInfo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	respx.SuccessWith(c, &image_store.ListPixivImageMetaInfoResponseData{
+	respx.SuccessWith(c, &temp.ListPixivImageMetaInfoResponseData{
 		PixivImageMetaInfos: infos,
 		Total:               int32(total),
 	})
