@@ -321,20 +321,20 @@ func (p *MultiTag) String() string {
 }
 
 type PixivImageMetaInfo struct {
-	PixivAddr   string      `thrift:"pixiv_addr,1,required" bson:"pixiv_addr" form:"pixiv_addr,required" json:"pixiv_addr,required" query:"pixiv_addr,required"`
-	Visible     bool        `thrift:"visible,2,required" bson:"visible" form:"visible,required" json:"visible,required" query:"visible,required"`
-	Author      string      `thrift:"author,3,required" bson:"author" form:"author,required" json:"author,required" query:"author,required"`
-	MultiTags   []*MultiTag `thrift:"multi_tags,4,optional" bson:"multi_tags" form:"multi_tags" json:"multi_tags,omitempty" query:"multi_tags"`
-	CreateTime  int64       `thrift:"create_time,5,required" bson:"create_time" form:"create_time,required" json:"create_time,required" query:"create_time,required"`
-	UpdateTime  int64       `thrift:"update_time,6,required" bson:"update_time" form:"update_time,required" json:"update_time,required" query:"update_time,required"`
-	TosFileName string      `thrift:"tos_file_name,7,required" bson:"tos_file_name" form:"tos_file_name,required" json:"tos_file_name,required" query:"tos_file_name,required"`
-	AuthorID    *string     `thrift:"author_id,8,optional" bson:"author_id" form:"author_id" json:"author_id,omitempty" query:"author_id"`
-	DelFlag     bool        `thrift:"del_flag,9,required" bson:"del_flag" form:"del_flag,required" json:"del_flag,required" query:"del_flag,required"`
-	IllustID    int32       `thrift:"illust_id,10,required" bson:"illust_id" form:"illust_id,required" json:"illust_id,required" query:"illust_id,required"`
-	Title       string      `thrift:"title,11,required" bson:"title" form:"title,required" json:"title,required" query:"title,required"`
-	ImageKey    *string     `thrift:"image_key,12,optional" bson:"image_key" form:"image_key" json:"image_key,omitempty" query:"image_key"`
-	Width       *int32      `thrift:"width,13,optional" bson:"width" form:"width" json:"width,omitempty" query:"width"`
-	Height      *int32      `thrift:"height,14,optional" bson:"height" form:"height" json:"height,omitempty" query:"height"`
+	PixivAddr   string      `thrift:"pixiv_addr,1,required" bson:"pixiv_addr,omitempty" form:"pixiv_addr,required" json:"pixiv_addr,required" query:"pixiv_addr,required"`
+	Visible     bool        `thrift:"visible,2,required" bson:"visible,omitempty" form:"visible,required" json:"visible,required" query:"visible,required"`
+	Author      string      `thrift:"author,3,required" bson:"author,omitempty" form:"author,required" json:"author,required" query:"author,required"`
+	MultiTags   []*MultiTag `thrift:"multi_tags,4,optional" bson:"multi_tags,omitempty" form:"multi_tags" json:"multi_tags,omitempty" query:"multi_tags"`
+	CreateTime  int64       `thrift:"create_time,5,required" bson:"create_time,omitempty" form:"create_time,required" json:"create_time,required" query:"create_time,required"`
+	UpdateTime  int64       `thrift:"update_time,6,required" bson:"update_time,omitempty" form:"update_time,required" json:"update_time,required" query:"update_time,required"`
+	TosFileName string      `thrift:"tos_file_name,7,required" bson:"tos_file_name,omitempty" form:"tos_file_name,required" json:"tos_file_name,required" query:"tos_file_name,required"`
+	AuthorID    *string     `thrift:"author_id,8,optional" bson:"author_id,omitempty" form:"author_id" json:"author_id,omitempty" query:"author_id"`
+	DelFlag     bool        `thrift:"del_flag,9,required" bson:"del_flag,omitempty" form:"del_flag,required" json:"del_flag,required" query:"del_flag,required"`
+	IllustID    int32       `thrift:"illust_id,10,required" bson:"illust_id,omitempty" form:"illust_id,required" json:"illust_id,required" query:"illust_id,required"`
+	Title       string      `thrift:"title,11,required" bson:"title,omitempty" form:"title,required" json:"title,required" query:"title,required"`
+	ImageKey    *string     `thrift:"image_key,12,optional" bson:"image_key,omitempty" form:"image_key" json:"image_key,omitempty" query:"image_key"`
+	Width       *int32      `thrift:"width,13,optional" bson:"width,omitempty" form:"width" json:"width,omitempty" query:"width"`
+	Height      *int32      `thrift:"height,14,optional" bson:"height,omitempty" form:"height" json:"height,omitempty" query:"height"`
 }
 
 func NewPixivImageMetaInfo() *PixivImageMetaInfo {
