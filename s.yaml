@@ -26,6 +26,7 @@ resources:
           OSS_BUCKET: ${env(OSS_BUCKET)}
           REDIS_PASSWORD: ${env(REDIS_PASSWORD)}
           REDIS_SERVER_IP: ${env(REDIS_SERVER_IP)}
+          HTTP_SECRET: ${env(HTTP_SECRET)}
       region: ${vars.region}
       description: Chiwei bot task
       runtime: custom.debian10
