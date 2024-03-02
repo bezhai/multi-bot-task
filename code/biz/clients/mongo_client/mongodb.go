@@ -6,6 +6,7 @@ import (
 	"reflect"
 
 	"go.mongodb.org/mongo-driver/bson/bsoncodec"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
@@ -22,7 +23,7 @@ var db *mongo.Client
 func InitMongoDb() {
 	var err error
 	reg := bsoncodec.NewRegistry()
-	reg.RegisterTypeDecoder(reflect.TypeOf(int64(0)), DateTimeDecoder{})
+	reg.RegisterTypeDecoder(reflect.TypeOf(primitive.DateTime(0)), DateTimeDecoder{})
 	url := fmt.Sprintf(`mongodb://%s:%s@%s/chiwei?connectTimeoutMS=2000&authSource=admin`,
 		env_utils.Value("MONGO_INITDB_ROOT_USERNAME"),
 		env_utils.Value("MONGO_INITDB_ROOT_PASSWORD"),
