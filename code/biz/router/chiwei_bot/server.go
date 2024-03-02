@@ -44,6 +44,7 @@ func Register(r *server.Hertz) {
 			_need_sk := _api.Group("/need-sk", _need_skMw()...)
 			{
 				_data_trans := _need_sk.Group("/data-trans", _data_transMw()...)
+				_data_trans.POST("/download-pixiv-image", append(_downloadpixivimageMw(), chiwei_bot.DownloadPixivImage)...)
 				_data_trans.POST("/proxy", append(_proxyMw(), chiwei_bot.Proxy)...)
 				_data_trans.POST("/upload-to-lark", append(_uploadtosfiletolarkMw(), chiwei_bot.UploadTosFileToLark)...)
 			}

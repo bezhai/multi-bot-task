@@ -9,12 +9,12 @@ import (
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
-	data_trans "github.com/bezhai/multi-bot-task/biz/model/data_trans"
-	image_store "github.com/bezhai/multi-bot-task/biz/model/image_store"
-	"github.com/bezhai/multi-bot-task/biz/model/temp"
-	translation "github.com/bezhai/multi-bot-task/biz/model/translation"
+	"github.com/bezhai/multi-bot-task/biz/model/data_trans"
+	"github.com/bezhai/multi-bot-task/biz/model/image_store"
+	"github.com/bezhai/multi-bot-task/biz/model/translation"
 	"github.com/bezhai/multi-bot-task/biz/service/conf_value"
 	"github.com/bezhai/multi-bot-task/biz/service/image_db"
+	"github.com/bezhai/multi-bot-task/biz/service/image_trans"
 	"github.com/bezhai/multi-bot-task/biz/service/proxy"
 	"github.com/bezhai/multi-bot-task/biz/utils/respx"
 )
@@ -50,9 +50,13 @@ func UploadTosFileToLark(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(data_trans.UploadTosFileToLarkResponse)
+	err = image_trans.UploadImageToLark(ctx, req.PixivAddr)
+	if err != nil {
+		respx.Fail(c, 500, err.Error())
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.Success(c)
 }
 
 // ListPixivImageMetaInfo .
@@ -72,7 +76,7 @@ func ListPixivImageMetaInfo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	respx.SuccessWith(c, &temp.ListPixivImageMetaInfoResponseData{
+	respx.SuccessWith(c, &image_store.ListPixivImageMetaInfoResponseData{
 		PixivImageMetaInfos: infos,
 		Total:               int32(total),
 	})
@@ -218,7 +222,7 @@ func Proxy(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	respBody, respHeader, err := proxy.Proxy(ctx, req.URL, req.Referer)
+	respBody, respHeader, err := proxy.Proxy(ctx, &req)
 	if err != nil {
 		respx.FailWithError(c, consts.StatusInternalServerError, err)
 		return
@@ -231,4 +235,24 @@ func Proxy(ctx context.Context, c *app.RequestContext) {
 	}
 
 	c.Data(200, "application/json", respBody)
+}
+
+// DownloadPixivImage .
+// @router /api/need-sk/data-trans/download-pixiv-image [POST]
+func DownloadPixivImage(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req data_trans.DownloadPixivImageRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	err = image_trans.DownloadPixivImages(ctx, req.PixivURL)
+	if err != nil {
+		respx.Fail(c, 500, err.Error())
+		return
+	}
+
+	respx.Success(c)
 }

@@ -9,13 +9,16 @@ struct PixivImageMetaInfo {
     2: required bool visible (go.tag = "bson:\"visible\"");
     3: required string author (go.tag = "bson:\"author\"");
     4: optional list<MultiTag> multi_tags (go.tag = "bson:\"multi_tags\"");
-    5: required string create_time (go.tag = "bson:\"create_time\"");
-    6: required string update_time (go.tag = "bson:\"update_time\"");
+    5: required i64 create_time (go.tag = "bson:\"create_time\"");
+    6: required i64 update_time (go.tag = "bson:\"update_time\"");
     7: required string tos_file_name (go.tag = "bson:\"tos_file_name\"");
     8: optional string author_id (go.tag = "bson:\"author_id\"");
     9: required bool del_flag (go.tag = "bson:\"del_flag\"");
     10: required i32 illust_id (go.tag = "bson:\"illust_id\"");
     11: required string title (go.tag = "bson:\"title\"");
+    12: optional string image_key (go.tag = "bson:\"image_key\"");
+    13: optional i32 width (go.tag = "bson:\"width\"");
+    14: optional i32 height (go.tag = "bson:\"height\"");
 }
 
 // 0: 未删除 1: 可见 2: 已删除 3: 全部 4: 不可见

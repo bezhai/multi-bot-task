@@ -19,5 +19,6 @@ service ChiweiBotService {
     translation.UpdateTranslationResponse UpdateTranslation(1: translation.UpdateTranslationRequest request) (api.post="/api/need-auth/translation/update")
 
     data_trans.ProxyResponse Proxy(1: data_trans.ProxyRequest request) (api.post="/api/need-sk/data-trans/proxy") // 代理请求
+    data_trans.DownloadPixivImageResponse DownloadPixivImage(1: data_trans.DownloadPixivImageRequest request) (api.post="/api/need-sk/data-trans/download-pixiv-image") // 下载pixiv图片
     data_trans.UploadTosFileToLarkResponse UploadTosFileToLark(1: data_trans.UploadTosFileToLarkRequest request) (api.post="/api/need-sk/data-trans/upload-to-lark") // pixivId换imageKey
 }

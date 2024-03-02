@@ -325,13 +325,16 @@ type PixivImageMetaInfo struct {
 	Visible     bool        `thrift:"visible,2,required" bson:"visible" form:"visible,required" json:"visible,required" query:"visible,required"`
 	Author      string      `thrift:"author,3,required" bson:"author" form:"author,required" json:"author,required" query:"author,required"`
 	MultiTags   []*MultiTag `thrift:"multi_tags,4,optional" bson:"multi_tags" form:"multi_tags" json:"multi_tags,omitempty" query:"multi_tags"`
-	CreateTime  string      `thrift:"create_time,5,required" bson:"create_time" form:"create_time,required" json:"create_time,required" query:"create_time,required"`
-	UpdateTime  string      `thrift:"update_time,6,required" bson:"update_time" form:"update_time,required" json:"update_time,required" query:"update_time,required"`
+	CreateTime  int64       `thrift:"create_time,5,required" bson:"create_time" form:"create_time,required" json:"create_time,required" query:"create_time,required"`
+	UpdateTime  int64       `thrift:"update_time,6,required" bson:"update_time" form:"update_time,required" json:"update_time,required" query:"update_time,required"`
 	TosFileName string      `thrift:"tos_file_name,7,required" bson:"tos_file_name" form:"tos_file_name,required" json:"tos_file_name,required" query:"tos_file_name,required"`
 	AuthorID    *string     `thrift:"author_id,8,optional" bson:"author_id" form:"author_id" json:"author_id,omitempty" query:"author_id"`
 	DelFlag     bool        `thrift:"del_flag,9,required" bson:"del_flag" form:"del_flag,required" json:"del_flag,required" query:"del_flag,required"`
 	IllustID    int32       `thrift:"illust_id,10,required" bson:"illust_id" form:"illust_id,required" json:"illust_id,required" query:"illust_id,required"`
 	Title       string      `thrift:"title,11,required" bson:"title" form:"title,required" json:"title,required" query:"title,required"`
+	ImageKey    *string     `thrift:"image_key,12,optional" bson:"image_key" form:"image_key" json:"image_key,omitempty" query:"image_key"`
+	Width       *int32      `thrift:"width,13,optional" bson:"width" form:"width" json:"width,omitempty" query:"width"`
+	Height      *int32      `thrift:"height,14,optional" bson:"height" form:"height" json:"height,omitempty" query:"height"`
 }
 
 func NewPixivImageMetaInfo() *PixivImageMetaInfo {
@@ -359,11 +362,11 @@ func (p *PixivImageMetaInfo) GetMultiTags() (v []*MultiTag) {
 	return p.MultiTags
 }
 
-func (p *PixivImageMetaInfo) GetCreateTime() (v string) {
+func (p *PixivImageMetaInfo) GetCreateTime() (v int64) {
 	return p.CreateTime
 }
 
-func (p *PixivImageMetaInfo) GetUpdateTime() (v string) {
+func (p *PixivImageMetaInfo) GetUpdateTime() (v int64) {
 	return p.UpdateTime
 }
 
@@ -392,6 +395,33 @@ func (p *PixivImageMetaInfo) GetTitle() (v string) {
 	return p.Title
 }
 
+var PixivImageMetaInfo_ImageKey_DEFAULT string
+
+func (p *PixivImageMetaInfo) GetImageKey() (v string) {
+	if !p.IsSetImageKey() {
+		return PixivImageMetaInfo_ImageKey_DEFAULT
+	}
+	return *p.ImageKey
+}
+
+var PixivImageMetaInfo_Width_DEFAULT int32
+
+func (p *PixivImageMetaInfo) GetWidth() (v int32) {
+	if !p.IsSetWidth() {
+		return PixivImageMetaInfo_Width_DEFAULT
+	}
+	return *p.Width
+}
+
+var PixivImageMetaInfo_Height_DEFAULT int32
+
+func (p *PixivImageMetaInfo) GetHeight() (v int32) {
+	if !p.IsSetHeight() {
+		return PixivImageMetaInfo_Height_DEFAULT
+	}
+	return *p.Height
+}
+
 var fieldIDToName_PixivImageMetaInfo = map[int16]string{
 	1:  "pixiv_addr",
 	2:  "visible",
@@ -404,6 +434,9 @@ var fieldIDToName_PixivImageMetaInfo = map[int16]string{
 	9:  "del_flag",
 	10: "illust_id",
 	11: "title",
+	12: "image_key",
+	13: "width",
+	14: "height",
 }
 
 func (p *PixivImageMetaInfo) IsSetMultiTags() bool {
@@ -412,6 +445,18 @@ func (p *PixivImageMetaInfo) IsSetMultiTags() bool {
 
 func (p *PixivImageMetaInfo) IsSetAuthorID() bool {
 	return p.AuthorID != nil
+}
+
+func (p *PixivImageMetaInfo) IsSetImageKey() bool {
+	return p.ImageKey != nil
+}
+
+func (p *PixivImageMetaInfo) IsSetWidth() bool {
+	return p.Width != nil
+}
+
+func (p *PixivImageMetaInfo) IsSetHeight() bool {
+	return p.Height != nil
 }
 
 func (p *PixivImageMetaInfo) Read(iprot thrift.TProtocol) (err error) {
@@ -478,7 +523,7 @@ func (p *PixivImageMetaInfo) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -487,7 +532,7 @@ func (p *PixivImageMetaInfo) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -536,6 +581,30 @@ func (p *PixivImageMetaInfo) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 				issetTitle = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 12:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 13:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 14:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
@@ -662,7 +731,7 @@ func (p *PixivImageMetaInfo) ReadField4(iprot thrift.TProtocol) error {
 }
 func (p *PixivImageMetaInfo) ReadField5(iprot thrift.TProtocol) error {
 
-	if v, err := iprot.ReadString(); err != nil {
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		p.CreateTime = v
@@ -671,7 +740,7 @@ func (p *PixivImageMetaInfo) ReadField5(iprot thrift.TProtocol) error {
 }
 func (p *PixivImageMetaInfo) ReadField6(iprot thrift.TProtocol) error {
 
-	if v, err := iprot.ReadString(); err != nil {
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		p.UpdateTime = v
@@ -720,6 +789,33 @@ func (p *PixivImageMetaInfo) ReadField11(iprot thrift.TProtocol) error {
 		return err
 	} else {
 		p.Title = v
+	}
+	return nil
+}
+func (p *PixivImageMetaInfo) ReadField12(iprot thrift.TProtocol) error {
+
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.ImageKey = &v
+	}
+	return nil
+}
+func (p *PixivImageMetaInfo) ReadField13(iprot thrift.TProtocol) error {
+
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		p.Width = &v
+	}
+	return nil
+}
+func (p *PixivImageMetaInfo) ReadField14(iprot thrift.TProtocol) error {
+
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		p.Height = &v
 	}
 	return nil
 }
@@ -772,6 +868,18 @@ func (p *PixivImageMetaInfo) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField11(oprot); err != nil {
 			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
+			goto WriteFieldError
+		}
+		if err = p.writeField13(oprot); err != nil {
+			fieldId = 13
+			goto WriteFieldError
+		}
+		if err = p.writeField14(oprot); err != nil {
+			fieldId = 14
 			goto WriteFieldError
 		}
 	}
@@ -871,10 +979,10 @@ WriteFieldEndError:
 }
 
 func (p *PixivImageMetaInfo) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("create_time", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("create_time", thrift.I64, 5); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CreateTime); err != nil {
+	if err := oprot.WriteI64(p.CreateTime); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -888,10 +996,10 @@ WriteFieldEndError:
 }
 
 func (p *PixivImageMetaInfo) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("update_time", thrift.STRING, 6); err != nil {
+	if err = oprot.WriteFieldBegin("update_time", thrift.I64, 6); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.UpdateTime); err != nil {
+	if err := oprot.WriteI64(p.UpdateTime); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -989,6 +1097,63 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *PixivImageMetaInfo) writeField12(oprot thrift.TProtocol) (err error) {
+	if p.IsSetImageKey() {
+		if err = oprot.WriteFieldBegin("image_key", thrift.STRING, 12); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteString(*p.ImageKey); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
+}
+
+func (p *PixivImageMetaInfo) writeField13(oprot thrift.TProtocol) (err error) {
+	if p.IsSetWidth() {
+		if err = oprot.WriteFieldBegin("width", thrift.I32, 13); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteI32(*p.Width); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
+}
+
+func (p *PixivImageMetaInfo) writeField14(oprot thrift.TProtocol) (err error) {
+	if p.IsSetHeight() {
+		if err = oprot.WriteFieldBegin("height", thrift.I32, 14); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteI32(*p.Height); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
 }
 
 func (p *PixivImageMetaInfo) String() string {

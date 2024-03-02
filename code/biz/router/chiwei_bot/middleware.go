@@ -3,7 +3,10 @@
 package chiwei_bot
 
 import (
+	"github.com/bezhai/go_utils/httpx"
 	"github.com/cloudwego/hertz/pkg/app"
+
+	"github.com/bezhai/multi-bot-task/utils/env_utils"
 )
 
 func rootMw() []app.HandlerFunc {
@@ -32,8 +35,9 @@ func _need_authMw() []app.HandlerFunc {
 }
 
 func _need_skMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		httpx.ServerAuthMiddleware(env_utils.Value("HTTP_SECRET")),
+	}
 }
 
 func _data_transMw() []app.HandlerFunc {
@@ -107,6 +111,11 @@ func _proxyMw() []app.HandlerFunc {
 }
 
 func _data_trans0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _downloadpixivimageMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

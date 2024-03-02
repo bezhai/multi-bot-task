@@ -67,6 +67,14 @@ func GetObject(ctx context.Context, fileName string) (io.ReadCloser, error) {
 	return reader, err
 }
 
+func GetObjectDetailMeta(ctx context.Context, fileName string, key string) (string, error) {
+	meta, err := internalBucket.GetObjectDetailedMeta(fileName)
+	if err != nil {
+		return "", err
+	}
+	return meta.Get(key), nil
+}
+
 func GenUrl(fileName string, isDownload bool) (string, error) {
 	var options []oss.Option
 	pixivAddrName := slicex.Get(strings.Split(fileName, "/"), -1).OrElse("")

@@ -11,11 +11,10 @@ import (
 	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
 	"github.com/bezhai/multi-bot-task/biz/clients/oss_client"
 	"github.com/bezhai/multi-bot-task/biz/model/image_store"
-	"github.com/bezhai/multi-bot-task/biz/model/temp"
 	"github.com/bezhai/multi-bot-task/biz/utils/langx/ptr"
 )
 
-func ListImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequest) ([]*temp.PixivImageMetaInfoWithUrl, int, error) {
+func ListImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequest) ([]*image_store.PixivImageMetaInfoWithUrl, int, error) {
 	images, total, err := listImages(ctx, req)
 	if err != nil {
 		return nil, 0, err
@@ -23,7 +22,7 @@ func ListImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 
 	wg := new(errgroup.Group)
 	limitChan := make(chan struct{}, 10)
-	result := make([]*temp.PixivImageMetaInfoWithUrl, len(images))
+	result := make([]*image_store.PixivImageMetaInfoWithUrl, len(images))
 
 	for i := range images {
 		index := i
@@ -33,7 +32,7 @@ func ListImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 				<-limitChan
 			}()
 
-			result[index] = &temp.PixivImageMetaInfoWithUrl{
+			result[index] = &image_store.PixivImageMetaInfoWithUrl{
 				PixivImageMetaInfo: images[index],
 			}
 
@@ -61,7 +60,7 @@ func ListImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 	return result, total, nil
 }
 
-func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequest) ([]*temp.PixivImageMetaInfo, int, error) {
+func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequest) ([]*image_store.PixivImageMetaInfo, int, error) {
 	var filters []bson.M
 
 	if ptr.Value(req.Author) != "" {
