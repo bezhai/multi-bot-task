@@ -74,6 +74,12 @@ func InitAuthMiddleware(ctx context.Context) {
 		Unauthorized: func(ctx context.Context, c *app.RequestContext, code int, message string) {
 			respx.Fail(c, code, message)
 		},
+		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
+			respx.SuccessWith(c, map[string]interface{}{
+				"token":  token,
+				"expire": expire.Format(time.RFC3339),
+			})
+		},
 	})
 	if err != nil {
 		log.Fatal("JWT Error:" + err.Error())
