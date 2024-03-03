@@ -21,9 +21,7 @@ func _apiMw() []app.HandlerFunc {
 }
 
 func _confMw() []app.HandlerFunc {
-	return []app.HandlerFunc{
-		authx.AuthMiddleware.MiddlewareFunc(),
-	}
+	return nil
 }
 
 func _getstringvalueMw() []app.HandlerFunc {
@@ -32,8 +30,9 @@ func _getstringvalueMw() []app.HandlerFunc {
 }
 
 func _need_authMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		authx.AuthMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _need_skMw() []app.HandlerFunc {
