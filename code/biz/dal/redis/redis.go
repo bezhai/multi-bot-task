@@ -1,4 +1,4 @@
-package redis_client
+package redis
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 
 var Redis *redis.Client
 
-func InitRedis() {
+func Init() {
 	Redis = redis.NewClient(&redis.Options{
 		Addr:     env_utils.Value("REDIS_SERVER_IP") + ":6379",
 		Password: env_utils.Value("REDIS_PASSWORD"),

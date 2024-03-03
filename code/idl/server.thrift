@@ -4,8 +4,11 @@ include "conf.thrift"
 include "data_trans.thrift"
 include "image_store.thrift"
 include "translation.thrift"
+include "auth.thrift"
 
 service ChiweiBotService {
+    auth.RegisterResponse Register(1: auth.RegisterRequest request) (api.post="/api/auth/register")
+
     conf.GetStringValueResponse GetStringValue(1: conf.GetStringValueRequest request) (api.get="/api/need-auth/conf/get-string-value")
     conf.SetStringValueResponse SetStringValue(1: conf.SetStringValueRequest request) (api.post="/api/need-auth/conf/set-string-value")
     conf.GetMemberValueResponse GetMemberValue(1: conf.GetMemberValueRequest request) (api.get="/api/need-auth/conf/get-member-value")

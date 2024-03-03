@@ -1,4 +1,4 @@
-package oss_client
+package oss
 
 const (
 	ContentLength = "Content-Length"

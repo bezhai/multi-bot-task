@@ -8,10 +8,12 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
+	"github.com/bezhai/multi-bot-task/biz/model/auth"
 	"github.com/bezhai/multi-bot-task/biz/model/conf"
 	"github.com/bezhai/multi-bot-task/biz/model/data_trans"
 	"github.com/bezhai/multi-bot-task/biz/model/image_store"
 	"github.com/bezhai/multi-bot-task/biz/model/translation"
+	"github.com/bezhai/multi-bot-task/biz/service/authx"
 	"github.com/bezhai/multi-bot-task/biz/service/conf_value"
 	"github.com/bezhai/multi-bot-task/biz/service/image_db"
 	"github.com/bezhai/multi-bot-task/biz/service/image_trans"
@@ -249,6 +251,26 @@ func DownloadPixivImage(ctx context.Context, c *app.RequestContext) {
 	}
 
 	err = image_trans.DownloadPixivImages(ctx, req.PixivURL)
+	if err != nil {
+		respx.Fail(c, 500, err.Error())
+		return
+	}
+
+	respx.Success(c)
+}
+
+// Register .
+// @router /api/auth/register [POST]
+func Register(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req auth.RegisterRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusBadRequest, err)
+		return
+	}
+
+	err = authx.Register(ctx, req.Username, req.Password)
 	if err != nil {
 		respx.Fail(c, 500, err.Error())
 		return

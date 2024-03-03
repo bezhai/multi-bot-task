@@ -8,7 +8,7 @@ import (
 
 var OfficialBot *lark.Client
 
-func InitOfficialBot() {
+func Init() {
 	OfficialBot = lark.NewClient(
 		env_utils.Value("LARK_APP_ID"),
 		env_utils.Value("LARK_APP_SECRET"),

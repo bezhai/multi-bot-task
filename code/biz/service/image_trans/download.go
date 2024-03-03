@@ -9,8 +9,8 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 
-	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/oss_client"
+	"github.com/bezhai/multi-bot-task/biz/dal/mongodb"
+	"github.com/bezhai/multi-bot-task/biz/dal/oss"
 	"github.com/bezhai/multi-bot-task/biz/model/data_trans"
 	"github.com/bezhai/multi-bot-task/biz/model/image_store"
 	"github.com/bezhai/multi-bot-task/biz/service/proxy"
@@ -21,7 +21,7 @@ func DownloadPixivImages(ctx context.Context, imageUrl string) error {
 	fileName := slicex.Get(strings.Split(imageUrl, "/"), -1).OrElse("")
 	illustId := strings.Split(fileName, "_")[0]
 
-	count, err := mongo_client.ImgCollection.CountDocuments(ctx,
+	count, err := mongodb.ImgCollection.CountDocuments(ctx,
 		bson.M{
 			"pixiv_addr": fileName,
 			"tos_file_name": bson.M{
@@ -43,12 +43,12 @@ func DownloadPixivImages(ctx context.Context, imageUrl string) error {
 
 	tosFileName := fmt.Sprintf("pixiv_img_v2/%s/%s", time.Now().Format("20060102"), fileName)
 
-	err = oss_client.PutObject(ctx, tosFileName, bytes.NewBuffer(reader))
+	err = oss.PutObject(ctx, tosFileName, bytes.NewBuffer(reader))
 	if err != nil {
 		return err
 	}
 
-	err = mongo_client.ImgCollection.InsertOne(ctx, &image_store.PixivImageMetaInfo{
+	err = mongodb.ImgCollection.InsertOne(ctx, &image_store.PixivImageMetaInfo{
 		PixivAddr:   fileName,
 		TosFileName: tosFileName,
 	})

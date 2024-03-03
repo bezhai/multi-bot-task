@@ -3,16 +3,14 @@
 package main
 
 import (
+	"context"
 	"time"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/hertz-contrib/cors"
 
-	"github.com/bezhai/multi-bot-task/biz/clients/http_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/lark_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/oss_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/redis_client"
+	"github.com/bezhai/multi-bot-task/biz/dal"
+	"github.com/bezhai/multi-bot-task/biz/service/authx"
 )
 
 func main() {
@@ -23,11 +21,8 @@ func main() {
 		AllowHeaders:    []string{"Content-Type", "Dnt", "Referer", "User-Agent", "Origin"},
 	}))
 
-	http_client.InitHttpClient()
-	lark_client.InitOfficialBot()
-	mongo_client.InitMongoDb()
-	redis_client.InitRedis()
-	oss_client.InitOssClient()
+	dal.Init()
+	authx.InitAuthMiddleware(context.Background())
 
 	register(h)
 	h.Spin()

@@ -27,6 +27,10 @@ resources:
           REDIS_PASSWORD: ${env(REDIS_PASSWORD)}
           REDIS_SERVER_IP: ${env(REDIS_SERVER_IP)}
           HTTP_SECRET: ${env(HTTP_SECRET)}
+          HTTP_JWT_KEY: ${env(HTTP_JWT_KEY)}
+          MYSQL_ROOT_PASSWORD: ${env(MYSQL_ROOT_PASSWORD)}
+          MYSQL_SERVER_IP: ${env(MYSQL_SERVER_IP)}
+          MYSQL_DBNAME: ${env(MYSQL_DBNAME)}
       region: ${vars.region}
       description: Chiwei bot task
       runtime: custom.debian10

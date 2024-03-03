@@ -8,8 +8,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/oss_client"
+	"github.com/bezhai/multi-bot-task/biz/dal/mongodb"
+	"github.com/bezhai/multi-bot-task/biz/dal/oss"
 	"github.com/bezhai/multi-bot-task/biz/model/image_store"
 	"github.com/bezhai/multi-bot-task/biz/utils/langx/ptr"
 )
@@ -37,12 +37,12 @@ func ListImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 			}
 
 			if images[index].TosFileName != "" {
-				downloadUrl, downloadErr := oss_client.GenUrl(images[index].TosFileName, true)
+				downloadUrl, downloadErr := oss.GenUrl(images[index].TosFileName, true)
 				if downloadErr != nil {
 					return downloadErr
 				}
 				result[index].DownloadURL = ptr.Ptr(downloadUrl)
-				url, downloadErr := oss_client.GenUrl(images[index].TosFileName, false)
+				url, downloadErr := oss.GenUrl(images[index].TosFileName, false)
 				if downloadErr != nil {
 					return downloadErr
 				}
@@ -123,7 +123,7 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 		})
 	}
 
-	count, err := mongo_client.ImgCollection.CountDocuments(ctx, bson.M{
+	count, err := mongodb.ImgCollection.CountDocuments(ctx, bson.M{
 		"$and": filters,
 	})
 	if err != nil {
@@ -143,7 +143,7 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 		SetSkip(int64((req.Page - 1) * req.PageSize)).SetLimit(int64(req.PageSize)).
 		SetSort(bson.M{"create_time": -1})
 
-	res, err := mongo_client.ImgCollection.Find(
+	res, err := mongodb.ImgCollection.Find(
 		ctx,
 		bson.M{
 			"$and": filters,
@@ -187,7 +187,7 @@ func UpdateImageStatus(ctx context.Context, req *image_store.UpdatePixivImageSta
 		return nil
 	}
 
-	err := mongo_client.ImgCollection.UpdateMany(ctx, bson.M{
+	err := mongodb.ImgCollection.UpdateMany(ctx, bson.M{
 		"pixiv_addr": bson.M{
 			"$in": req.PixivAddrList,
 		},

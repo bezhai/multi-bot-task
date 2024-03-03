@@ -1,4 +1,4 @@
-package mongo_client
+package mongodb
 
 import (
 	"reflect"

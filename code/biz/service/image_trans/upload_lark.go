@@ -10,25 +10,25 @@ import (
 	"github.com/spf13/cast"
 	"go.mongodb.org/mongo-driver/bson"
 
-	"github.com/bezhai/multi-bot-task/biz/clients/lark_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/mongo_client"
-	"github.com/bezhai/multi-bot-task/biz/clients/oss_client"
+	"github.com/bezhai/multi-bot-task/biz/dal/lark_client"
+	"github.com/bezhai/multi-bot-task/biz/dal/mongodb"
+	"github.com/bezhai/multi-bot-task/biz/dal/oss"
 	"github.com/bezhai/multi-bot-task/biz/utils/imagex"
 )
 
 func UploadImageToLark(ctx context.Context, pixivAddr string) error {
-	imageInfo, err := mongo_client.ImgCollection.FindOne(ctx, bson.M{
+	imageInfo, err := mongodb.ImgCollection.FindOne(ctx, bson.M{
 		"pixiv_addr": pixivAddr,
 	})
 	if err != nil {
 		return err
 	}
 
-	reader, err := oss_client.GetObject(ctx, imageInfo.TosFileName)
+	reader, err := oss.GetObject(ctx, imageInfo.TosFileName)
 	if err != nil {
 		return err
 	}
-	imageSize, err := oss_client.GetObjectDetailMeta(ctx, imageInfo.TosFileName, oss_client.ContentLength)
+	imageSize, err := oss.GetObjectDetailMeta(ctx, imageInfo.TosFileName, oss.ContentLength)
 
 	newReader, width, height, err := imagex.ResizeImage(reader, cast.ToInt(imageSize))
 	if err != nil {
@@ -41,7 +41,7 @@ func UploadImageToLark(ctx context.Context, pixivAddr string) error {
 		return err
 	}
 
-	err = mongo_client.ImgCollection.UpdateOne(ctx, bson.M{
+	err = mongodb.ImgCollection.UpdateOne(ctx, bson.M{
 		"pixiv_addr": pixivAddr,
 	}, bson.M{
 		"image_key": imageKey,

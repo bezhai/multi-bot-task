@@ -20,6 +20,10 @@ func Register(r *server.Hertz) {
 	{
 		_api := root.Group("/api", _apiMw()...)
 		{
+			_auth := _api.Group("/auth", _authMw()...)
+			_auth.POST("/register", append(_registerMw(), chiwei_bot.Register)...)
+		}
+		{
 			_need_auth := _api.Group("/need-auth", _need_authMw()...)
 			{
 				_conf := _need_auth.Group("/conf", _confMw()...)

@@ -12,7 +12,7 @@ import (
 
 var c *client.Client
 
-func InitHttpClient() {
+func Init() {
 	var err error
 	clientCfg := &tls.Config{
 		InsecureSkipVerify: true,

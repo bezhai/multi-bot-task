@@ -6,11 +6,12 @@ import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 
 	"github.com/bezhai/multi-bot-task/biz/handler"
+	"github.com/bezhai/multi-bot-task/biz/service/authx"
 )
 
 // customizeRegister registers customize routers.
 func customizedRegister(r *server.Hertz) {
 	r.GET("/api/ping", handler.Ping)
 
-	// your code ...
+	r.POST("api/auth/login", authx.AuthMiddleware.LoginHandler)
 }

@@ -1,4 +1,4 @@
-package oss_client
+package oss
 
 import (
 	"context"
@@ -18,7 +18,7 @@ import (
 var internalBucket *oss.Bucket
 var cnameBucket *oss.Bucket
 
-func InitOssClient() {
+func Init() {
 	internalBucket = newOssClient(false)
 	cnameBucket = newOssClient(true)
 }

@@ -1,4 +1,4 @@
-package mongo_client
+package mongodb
 
 import (
 	"context"
@@ -19,7 +19,7 @@ var TranslateMap *MongoCollection[translation.TranslateWord]
 
 var db *mongo.Client
 
-func InitMongoDb() {
+func Init() {
 	var err error
 	reg := bson.DefaultRegistry
 	reg.RegisterTypeDecoder(reflect.TypeOf(int64(0)), Int64Decoder{})
