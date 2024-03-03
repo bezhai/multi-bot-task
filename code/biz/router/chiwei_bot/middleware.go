@@ -6,6 +6,7 @@ import (
 	"github.com/bezhai/go_utils/httpx"
 	"github.com/cloudwego/hertz/pkg/app"
 
+	"github.com/bezhai/multi-bot-task/biz/service/authx"
 	"github.com/bezhai/multi-bot-task/utils/env_utils"
 )
 
@@ -20,8 +21,9 @@ func _apiMw() []app.HandlerFunc {
 }
 
 func _confMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		authx.AuthMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _getstringvalueMw() []app.HandlerFunc {

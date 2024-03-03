@@ -18,7 +18,7 @@ func main() {
 	h.Use(cors.New(cors.Config{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:    []string{"Content-Type", "Dnt", "Referer", "User-Agent", "Origin"},
+		AllowHeaders:    []string{"Content-Type", "Dnt", "Referer", "User-Agent", "Origin", "Authorization"},
 	}))
 
 	dal.Init()
