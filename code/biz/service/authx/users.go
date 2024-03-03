@@ -9,9 +9,8 @@ import (
 	"github.com/bezhai/multi-bot-task/biz/utils/sec"
 )
 
-var UserDao = mysql.GenDao.User
-
 func CheckUserPassword(ctx context.Context, username, password string) error {
+	var UserDao = mysql.GenDao.User
 	user, err := UserDao.WithContext(ctx).
 		Where(UserDao.Username.Eq(username)).
 		First()
@@ -25,6 +24,7 @@ func CheckUserPassword(ctx context.Context, username, password string) error {
 }
 
 func CheckUser(ctx context.Context, username string) error {
+	var UserDao = mysql.GenDao.User
 	_, err := UserDao.WithContext(ctx).
 		Where(UserDao.Username.Eq(username)).
 		First()
@@ -36,7 +36,7 @@ func CheckUser(ctx context.Context, username string) error {
 }
 
 func Register(ctx context.Context, username, password string) error {
-
+	var UserDao = mysql.GenDao.User
 	count, err := UserDao.WithContext(ctx).Where(UserDao.Username.Eq(username)).Count()
 	if err != nil {
 		return err
