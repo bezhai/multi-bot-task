@@ -55,7 +55,7 @@ func InitAuthMiddleware(ctx context.Context) {
 			userID := loginVals.Username
 			password := loginVals.Password
 
-			if CheckUser(ctx, userID, password) == nil {
+			if CheckUserPassword(ctx, userID, password) == nil {
 				return &User{
 					UserName: userID,
 				}, nil
@@ -64,8 +64,11 @@ func InitAuthMiddleware(ctx context.Context) {
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, ctx context.Context, c *app.RequestContext) bool {
-			// TODO：根据路由增加权限设置
 			if v, ok := data.(*User); ok && v.UserName != "" {
+				err = CheckUser(ctx, v.UserName)
+				if err != nil {
+					return false
+				}
 				return true
 			}
 
