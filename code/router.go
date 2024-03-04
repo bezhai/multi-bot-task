@@ -13,5 +13,6 @@ import (
 func customizedRegister(r *server.Hertz) {
 	r.GET("/api/ping", handler.Ping)
 
-	r.POST("api/auth/login", authx.AuthMiddleware.LoginHandler)
+	r.POST("/api/auth/login", authx.AuthMiddleware.LoginHandler)
+	r.GET("/api/auth/refresh", authx.AuthMiddleware.RefreshHandler)
 }

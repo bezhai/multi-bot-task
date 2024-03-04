@@ -30,8 +30,8 @@ func InitAuthMiddleware(ctx context.Context) {
 	AuthMiddleware, err = jwt.New(&jwt.HertzJWTMiddleware{
 		Realm:       "chiwei bot",
 		Key:         []byte(env_utils.Value("HTTP_JWT_KEY")),
-		Timeout:     12 * time.Hour,
-		MaxRefresh:  24 * time.Hour,
+		Timeout:     1 * time.Minute, // TODO：记得改成1天
+		MaxRefresh:  6 * 24 * time.Hour,
 		IdentityKey: identityKey,
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if v, ok := data.(*User); ok {
@@ -78,6 +78,12 @@ func InitAuthMiddleware(ctx context.Context) {
 			respx.Fail(c, code, message)
 		},
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
+			respx.SuccessWith(c, map[string]interface{}{
+				"token":  token,
+				"expire": expire.Format(time.RFC3339),
+			})
+		},
+		RefreshResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
 			respx.SuccessWith(c, map[string]interface{}{
 				"token":  token,
 				"expire": expire.Format(time.RFC3339),
