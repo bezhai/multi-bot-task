@@ -30,7 +30,7 @@ func InitAuthMiddleware(ctx context.Context) {
 	AuthMiddleware, err = jwt.New(&jwt.HertzJWTMiddleware{
 		Realm:       "chiwei bot",
 		Key:         []byte(env_utils.Value("HTTP_JWT_KEY")),
-		Timeout:     1 * time.Minute, // TODO：记得改成1天
+		Timeout:     24 * time.Hour,
 		MaxRefresh:  6 * 24 * time.Hour,
 		IdentityKey: identityKey,
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
