@@ -16,7 +16,7 @@ import (
 func main() {
 	h := server.Default(server.WithMaxRequestBodySize(20<<24), server.WithWriteTimeout(60*time.Second))
 	h.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3000", "http://www.yuanzhi.xyz"},
+		AllowOrigins: []string{"http://localhost:3000", "https://www.yuanzhi.xyz"},
 		AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders: []string{"Content-Type", "Dnt", "Referer", "User-Agent", "Origin", "Authorization"},
 	}))
