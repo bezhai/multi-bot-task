@@ -28,7 +28,7 @@ func UploadImageToLark(ctx context.Context, pixivAddr string) error {
 	if err != nil {
 		return err
 	}
-	imageSize, err := oss.GetObjectDetailMeta(ctx, imageInfo.TosFileName, oss.ContentLength)
+	imageSize, err := oss.GetObjectDetailMeta(imageInfo.TosFileName, oss.ContentLength)
 
 	newReader, width, height, err := imagex.ResizeImage(reader, cast.ToInt(imageSize))
 	if err != nil {

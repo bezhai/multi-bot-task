@@ -3,6 +3,7 @@ package oss
 import (
 	"context"
 	"fmt"
+	"github.com/spf13/cast"
 	"io"
 	"strings"
 
@@ -67,7 +68,7 @@ func GetObject(ctx context.Context, fileName string) (io.ReadCloser, error) {
 	return reader, err
 }
 
-func GetObjectDetailMeta(ctx context.Context, fileName string, key string) (string, error) {
+func GetObjectDetailMeta(fileName string, key string) (string, error) {
 	meta, err := internalBucket.GetObjectDetailedMeta(fileName)
 	if err != nil {
 		return "", err
@@ -78,10 +79,13 @@ func GetObjectDetailMeta(ctx context.Context, fileName string, key string) (stri
 func GenUrl(fileName string, isDownload bool) (string, error) {
 	var options []oss.Option
 	pixivAddrName := slicex.Get(strings.Split(fileName, "/"), -1).OrElse("")
+	contentLength, err := GetObjectDetailMeta(fileName, ContentLength)
 	if isDownload {
 		options = append(options, oss.ResponseContentDisposition(fmt.Sprintf(`attachment; filename="%s"`, pixivAddrName)))
 	} else {
-		options = append(options, oss.Process("style/sort_image"))
+		if cast.ToInt64(contentLength) < 20*1024*1024 {
+			options = append(options, oss.Process("style/sort_image"))
+		}
 	}
 	url, err := cnameBucket.SignURL(fileName, oss.HTTPGet, 7200,
 		options...)
