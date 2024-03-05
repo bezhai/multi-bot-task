@@ -18,6 +18,7 @@ import (
 	"github.com/bezhai/multi-bot-task/biz/service/image_db"
 	"github.com/bezhai/multi-bot-task/biz/service/image_trans"
 	"github.com/bezhai/multi-bot-task/biz/service/proxy"
+	"github.com/bezhai/multi-bot-task/biz/service/translation_store"
 	"github.com/bezhai/multi-bot-task/biz/utils/respx"
 )
 
@@ -116,9 +117,13 @@ func DeleteTranslation(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(translation.DeleteTranslationResponse)
+	err = translation_store.DeleteTranslate(ctx, req.Origin)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusInternalServerError, err)
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.Success(c)
 }
 
 // ListTranslation .
@@ -132,9 +137,13 @@ func ListTranslation(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(translation.ListTranslationResponse)
+	data, err := translation_store.ListTranslation(ctx, &req)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusInternalServerError, err)
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.SuccessWith(c, data)
 }
 
 // UpdateTranslation .
@@ -148,9 +157,13 @@ func UpdateTranslation(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(translation.UpdateTranslationResponse)
+	err = translation_store.UpdateTranslate(ctx, req.Origin, req.Translation)
+	if err != nil {
+		respx.FailWithError(c, consts.StatusInternalServerError, err)
+		return
+	}
 
-	c.JSON(consts.StatusOK, resp)
+	respx.Success(c)
 }
 
 // SetStringValue .
