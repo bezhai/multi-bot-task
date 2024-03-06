@@ -99,16 +99,27 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 		})
 	}
 
+	delFlagFalse := bson.M{
+		"$or": []bson.M{
+			{
+				"$exists": false,
+			},
+			{
+				"$eq": false,
+			},
+		},
+	}
+
 	switch req.Status {
 	case image_store.StatusMode_StatusVisible:
 		filters = append(filters, bson.M{
 			"visible":  true,
-			"del_flag": false,
+			"del_flag": delFlagFalse,
 		})
 	case image_store.StatusMode_StatusNoVisible:
 		filters = append(filters, bson.M{
 			"visible":  false,
-			"del_flag": false,
+			"del_flag": delFlagFalse,
 		})
 	case image_store.StatusMode_StatusDelete:
 		filters = append(filters, bson.M{
@@ -119,7 +130,7 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 		fallthrough
 	default:
 		filters = append(filters, bson.M{
-			"del_flag": false,
+			"del_flag": delFlagFalse,
 		})
 	}
 
