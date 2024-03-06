@@ -102,10 +102,12 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 	delFlagFalse := bson.M{
 		"$or": []bson.M{
 			{
-				"$exists": false,
+				"del_flag": bson.M{
+					"$exists": false,
+				},
 			},
 			{
-				"$eq": false,
+				"del_flag": false,
 			},
 		},
 	}
@@ -114,13 +116,13 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 	case image_store.StatusMode_StatusVisible:
 		filters = append(filters, bson.M{
 			"visible":  true,
-			"del_flag": delFlagFalse,
 		})
+		filters = append(filters, delFlagFalse)
 	case image_store.StatusMode_StatusNoVisible:
 		filters = append(filters, bson.M{
 			"visible":  false,
-			"del_flag": delFlagFalse,
 		})
+		filters = append(filters, delFlagFalse)
 	case image_store.StatusMode_StatusDelete:
 		filters = append(filters, bson.M{
 			"del_flag": true,
@@ -129,9 +131,7 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 	case image_store.StatusMode_StatusNotDelete:
 		fallthrough
 	default:
-		filters = append(filters, bson.M{
-			"del_flag": delFlagFalse,
-		})
+		filters = append(filters, delFlagFalse)
 	}
 
 	count, err := mongodb.ImgCollection.CountDocuments(ctx, bson.M{
