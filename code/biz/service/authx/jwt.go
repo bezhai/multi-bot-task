@@ -76,7 +76,7 @@ func InitAuthMiddleware(ctx context.Context) {
 		},
 		Unauthorized: func(ctx context.Context, c *app.RequestContext, code int, message string) {
 			switch message {
-			case jwt.ErrExpiredToken.Error():
+			case "Token is expired", "token is expired":
 				respx.FailWithCode(c, code, respx.TokenExpire, message)
 			default:
 				respx.FailWithCode(c, code, respx.TokenFail, message)
