@@ -33,13 +33,22 @@ func Success(c *app.RequestContext) {
 	c.JSON(200, resp)
 }
 
-func Fail(c *app.RequestContext, code int, msg string) {
+func Fail(c *app.RequestContext, statusCode int, msg string) {
+	resp := map[string]interface{}{
+		"code": -1,
+		"msg":  msg,
+	}
+
+	c.JSON(statusCode, resp)
+}
+
+func FailWithCode(c *app.RequestContext, statusCode int, code int, msg string) {
 	resp := map[string]interface{}{
 		"code": code,
 		"msg":  msg,
 	}
 
-	c.JSON(code, resp)
+	c.JSON(statusCode, resp)
 }
 
 func FailWithError(c *app.RequestContext, code int, err error) {
