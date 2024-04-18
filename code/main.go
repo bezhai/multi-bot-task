@@ -3,7 +3,6 @@
 package main
 
 import (
-	"context"
 	"time"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -26,7 +25,7 @@ func main() {
 	}))
 
 	dal.Init()
-	authx.InitAuthMiddleware(context.Background())
+	authx.InitAuthMiddleware()
 
 	register(h)
 	h.Spin()

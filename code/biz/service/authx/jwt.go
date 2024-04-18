@@ -25,7 +25,7 @@ type User struct {
 
 var AuthMiddleware *jwt.HertzJWTMiddleware
 
-func InitAuthMiddleware(ctx context.Context) {
+func InitAuthMiddleware() {
 	var err error
 	AuthMiddleware, err = jwt.New(&jwt.HertzJWTMiddleware{
 		Realm:       "chiwei bot",
@@ -99,11 +99,4 @@ func InitAuthMiddleware(ctx context.Context) {
 		log.Fatal("JWT Error:" + err.Error())
 	}
 
-	// When you use jwt.New(), the function is already automatically called for checking,
-	// which means you don't need to call it again.
-	errInit := AuthMiddleware.MiddlewareInit()
-
-	if errInit != nil {
-		log.Fatal("AuthMiddleware.MiddlewareInit() Error:" + errInit.Error())
-	}
 }

@@ -103,9 +103,9 @@ type MongoCollectionAggregate[K any] struct {
 	pipeLine []bson.M
 }
 
-func NewAggregate[T any, K any](mongoCollection *MongoCollection[T]) *MongoCollectionAggregate[K] {
+func NewAggregate[K any](c *mongo.Collection) *MongoCollectionAggregate[K] {
 	return &MongoCollectionAggregate[K]{
-		c: mongoCollection.c,
+		c: c,
 	}
 }
 
@@ -159,6 +159,11 @@ func (m *MongoCollectionAggregate[K]) Lookup(from, localField, foreignField, as 
 		"foreignField": foreignField,
 		"as":           as,
 	}})
+	return m
+}
+
+func (m *MongoCollectionAggregate[K]) Sample(n int) *MongoCollectionAggregate[K] {
+	m.pipeLine = append(m.pipeLine, bson.M{"$sample": bson.M{"size": n}})
 	return m
 }
 

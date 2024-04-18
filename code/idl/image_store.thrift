@@ -38,6 +38,7 @@ struct ListPixivImageMetaInfoRequest {
     5: optional i32 page = 1;
     6: optional i32 page_size = 10;
     7: optional i32 illust_id;
+    8: optional bool random_mode; // 随机模式, 不分页
 }
 
 struct PixivImageMetaInfoWithUrl {

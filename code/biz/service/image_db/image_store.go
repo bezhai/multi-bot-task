@@ -11,6 +11,7 @@ import (
 	"github.com/bezhai/multi-bot-task/biz/dal/mongodb"
 	"github.com/bezhai/multi-bot-task/biz/dal/oss"
 	"github.com/bezhai/multi-bot-task/biz/model/image_store"
+	"github.com/bezhai/multi-bot-task/biz/utils/langx"
 	"github.com/bezhai/multi-bot-task/biz/utils/langx/ptr"
 )
 
@@ -115,12 +116,12 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 	switch req.Status {
 	case image_store.StatusMode_StatusVisible:
 		filters = append(filters, bson.M{
-			"visible":  true,
+			"visible": true,
 		})
 		filters = append(filters, delFlagFalse)
 	case image_store.StatusMode_StatusNoVisible:
 		filters = append(filters, bson.M{
-			"visible":  false,
+			"visible": false,
 		})
 		filters = append(filters, delFlagFalse)
 	case image_store.StatusMode_StatusDelete:
@@ -140,6 +141,9 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 	if err != nil {
 		return nil, 0, err
 	}
+	if count == 0 {
+		return nil, 0, nil
+	}
 
 	if req.Page <= 0 {
 		req.Page = 1
@@ -147,6 +151,17 @@ func listImages(ctx context.Context, req *image_store.ListPixivImageMetaInfoRequ
 
 	if req.PageSize <= 0 {
 		req.PageSize = 20
+	}
+
+	if req.GetRandomMode() {
+		res, err2 := mongodb.ImgCollectionAggregate.Match(bson.M{
+			"$and": filters,
+		}).Sample(langx.MinInteger(int(count), int(req.PageSize))).Find(ctx)
+		if err2 != nil {
+			return nil, 0, err2
+		}
+
+		return res, int(count), nil
 	}
 
 	opts := options.

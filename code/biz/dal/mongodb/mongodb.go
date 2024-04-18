@@ -17,6 +17,8 @@ import (
 var ImgCollection *MongoCollection[image_store.PixivImageMetaInfo]
 var TranslateMap *MongoCollection[translation.TranslateWord]
 
+var ImgCollectionAggregate *MongoCollectionAggregate[image_store.PixivImageMetaInfo]
+
 var db *mongo.Client
 
 func Init() {
@@ -35,8 +37,13 @@ func Init() {
 	}
 	ImgCollection = GenCollection[image_store.PixivImageMetaInfo]("img_map")
 	TranslateMap = GenCollection[translation.TranslateWord]("trans_map")
+	ImgCollectionAggregate = GenAggregate[image_store.PixivImageMetaInfo]("img_map")
 }
 
 func GenCollection[T any](name string) *MongoCollection[T] {
 	return NewCollection[T](db.Database("chiwei").Collection(name))
+}
+
+func GenAggregate[T any](name string) *MongoCollectionAggregate[T] {
+	return NewAggregate[T](db.Database("chiwei").Collection(name))
 }
